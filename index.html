@@ -268,7 +268,7 @@ body.mode-high-contrast .brand-logo-img {
 /* Split-panel hero: text left, logo-image right seamlessly integrated */
 .home-hero-wrap {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 280px;
   background: var(--paper);
   border-bottom: 1px solid var(--border);
   position: relative;
@@ -284,7 +284,7 @@ body.mode-high-contrast .brand-logo-img {
 }
 
 /* Right decorative panel — same bg as the page, image just floats naturally */
-home-hero-deco {
+.home-hero-deco {
   position: relative;
   background: #FDFAF4;
   display: flex;
@@ -296,13 +296,13 @@ home-hero-deco {
 .home-hero-deco::before {
   content: '';
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 10px;
   width: 220px;
-  height: 180px;
+  height: 170px;
   background: radial-gradient(circle at center,
-    rgba(229, 182, 176, 0.28) 0%,
-    rgba(239, 205, 198, 0.14) 48%,
+    rgba(229, 182, 176, 0.26) 0%,
+    rgba(239, 205, 198, 0.13) 46%,
     rgba(255,255,255,0) 76%);
   filter: blur(4px);
   z-index: 0;
@@ -316,23 +316,23 @@ home-hero-deco {
   object-fit: cover;
   object-position: center top;
   display: block;
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
+  /* multiply: corrected bg (#fdfaf4) × panel bg (#fdfaf4) = invisible seam */
   mix-blend-mode: multiply;
   filter: contrast(1.04) saturate(0.95);
-  animation: none;
+  animation: heroBreathe 14s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   transform-origin: center 50%;
 }
 .home-hero-deco::after {
   content: '';
   position: absolute;
-  bottom: 12px;
-  right: 20px;
-  width: 250px;
-  height: 180px;
+  bottom: 14px;
+  right: 16px;
+  width: 230px;
+  height: 165px;
   background: radial-gradient(circle at center,
-    rgba(231, 190, 186, 0.24) 0%,
-    rgba(244, 222, 218, 0.12) 46%,
+    rgba(231, 190, 186, 0.22) 0%,
+    rgba(244, 222, 218, 0.11) 44%,
     rgba(255,255,255,0) 76%);
   filter: blur(5px);
   z-index: 0;
@@ -340,8 +340,14 @@ home-hero-deco {
 }
 
 @keyframes heroBreathe {
-  0%, 100% { transform: scale(1) translateY(0);      opacity: 0.90; }
-  50%       { transform: scale(1.02) translateY(-4px); opacity: 0.96; }
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translateY(-6px) scale(1.012);
+    opacity: 0.98;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-logo-img { animation: none; }
@@ -1338,7 +1344,7 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
         </div>
       </div>
       <div class="sec-group">
-        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec4" aria-label="Section 4: Posterior Chain — 5 movements. Collapse or expand.">
+        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec4" aria-label="Section 4: Posterior Chain and Whole-Body Coordination— 5 movements. Collapse or expand.">
           <span class="sec-dot" style="background:#8C6E52" aria-hidden="true"></span>
           <span class="sec-label">Posterior Chain</span>
           <span class="sec-arrow" aria-hidden="true">▶</span>
@@ -1352,7 +1358,7 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
         </div>
       </div>
       <div class="sec-group">
-        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec5" aria-label="Section 5: Shoulder and Neck — 3 movements. Collapse or expand.">
+        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec5" aria-label="Section 5: Shoulder and Neck Relief— 3 movements. Collapse or expand.">
           <span class="sec-dot" style="background:#6E6840" aria-hidden="true"></span>
           <span class="sec-label">Shoulder & Neck</span>
           <span class="sec-arrow" aria-hidden="true">▶</span>
