@@ -146,7 +146,7 @@ body {
   display: block;
   /* multiply: image bg (#fdfaf4) × panel bg (#fdfaf4) = perfectly invisible */
   mix-blend-mode: multiply;
-  filter: saturate(1.05) contrast(2.02);
+  filter: saturate(1.05) contrast(1.02);
 }
 
 .brand-logo-panel::before,
@@ -275,6 +275,7 @@ body.mode-high-contrast .brand-logo-img {
   overflow: hidden;
   min-height: 220px;
 }
+
 /* Left panel */
 .home-hero-text {
   padding: 46px 52px 44px;
@@ -285,13 +286,12 @@ body.mode-high-contrast .brand-logo-img {
 /* Right decorative panel — same bg as the page, image just floats naturally */
 .home-hero-deco {
   position: relative;
+  /* Exact match to processed image bg — zero visible seam */
   background: #FDFAF4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; padding: 0;
 }
+
 .home-hero-deco::before { display: none; }
 
 .hero-logo-img {
@@ -305,20 +305,15 @@ body.mode-high-contrast .brand-logo-img {
   /* multiply: corrected bg (#fdfaf4) × panel bg (#fdfaf4) = invisible seam */
   mix-blend-mode: multiply;
   filter: contrast(1.04) saturate(0.95);
-  animation: heroBreathe 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation: heroBreathe 9s ease-in-out infinite;
   transform-origin: center 50%;
 }
+
 .home-hero-deco::after { display: none; }
 
 @keyframes heroBreathe {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.92;
-  }
-  50% {
-    transform: translateY(-6px) scale(1.012);
-    opacity: 0.98;
-  }
+  0%, 100% { transform: scale(1) translateY(0);      opacity: 0.90; }
+  50%       { transform: scale(1.02) translateY(-4px); opacity: 0.96; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-logo-img { animation: none; }
