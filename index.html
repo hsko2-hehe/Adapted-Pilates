@@ -268,12 +268,12 @@ body.mode-high-contrast .brand-logo-img {
 /* Split-panel hero: text left, logo-image right seamlessly integrated */
 .home-hero-wrap {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 320px;
   background: var(--paper);
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
-  min-height: 270px;
+  min-height: 220px;
 }
 
 /* Left panel */
@@ -284,9 +284,9 @@ body.mode-high-contrast .brand-logo-img {
 }
 
 /* Right decorative panel — same bg as the page, image just floats naturally */
-.home-hero-deco {
+home-hero-deco {
   position: relative;
-  background: linear-gradient(180deg, #FDF8F2 0%, #F7F0E8 100%);
+  background: #FDFAF4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -296,16 +296,15 @@ body.mode-high-contrast .brand-logo-img {
 .home-hero-deco::before {
   content: '';
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 320px;
-  height: 220px;
+  top: 8px;
+  right: 8px;
+  width: 220px;
+  height: 180px;
   background: radial-gradient(circle at center,
-    rgba(226, 176, 170, 0.34) 0%,
-    rgba(233, 192, 186, 0.22) 38%,
-    rgba(244, 220, 216, 0.10) 62%,
-    rgba(255,255,255,0) 78%);
-  filter: blur(8px);
+    rgba(229, 182, 176, 0.28) 0%,
+    rgba(239, 205, 198, 0.14) 48%,
+    rgba(255,255,255,0) 76%);
+  filter: blur(4px);
   z-index: 0;
   pointer-events: none;
 }
@@ -314,30 +313,28 @@ body.mode-high-contrast .brand-logo-img {
   /* Fill the full panel height — larger, more impactful */
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: right center;
+  object-fit: cover;
+  object-position: center top;
   display: block;
   position: relative;
   z-index: 1;
   mix-blend-mode: multiply;
-  filter: contrast(1.12) brightness(0.9) saturate(1.02);
+  filter: contrast(1.04) saturate(0.95);
   animation: none;
-  transform-origin: center center;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  transform-origin: center 50%;
 }
 .home-hero-deco::after {
   content: '';
   position: absolute;
-  bottom: 8px;
-  right: 6px;
-  width: 360px;
-  height: 260px;
+  bottom: 12px;
+  right: 20px;
+  width: 250px;
+  height: 180px;
   background: radial-gradient(circle at center,
-    rgba(229, 188, 185, 0.28) 0%,
-    rgba(237, 209, 203, 0.16) 42%,
+    rgba(231, 190, 186, 0.24) 0%,
+    rgba(244, 222, 218, 0.12) 46%,
     rgba(255,255,255,0) 76%);
-  filter: blur(10px);
+  filter: blur(5px);
   z-index: 0;
   pointer-events: none;
 }
@@ -358,9 +355,7 @@ body.mode-high-contrast .hero-logo-img { mix-blend-mode: normal; }
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 0% 46%, rgba(181,94,40,0.035) 0%, transparent 66%),
-    radial-gradient(circle at 82% 18%, rgba(228, 194, 186, 0.12) 0%, transparent 30%);
+  background: radial-gradient(ellipse at 0% 50%, rgba(181,94,40,0.05) 0%, transparent 68%);
   pointer-events: none;
 }
 
