@@ -268,12 +268,12 @@ body.mode-high-contrast .brand-logo-img {
 /* Split-panel hero: text left, logo-image right seamlessly integrated */
 .home-hero-wrap {
   display: grid;
-  grid-template-columns: 1fr 280px;
+  grid-template-columns: 1fr 340px;
   background: var(--paper);
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
-  min-height: 220px;
+  min-height: 270px;
 }
 
 /* Left panel */
@@ -286,30 +286,61 @@ body.mode-high-contrast .brand-logo-img {
 /* Right decorative panel — same bg as the page, image just floats naturally */
 .home-hero-deco {
   position: relative;
-  /* Exact match to processed image bg — zero visible seam */
-  background: #FDFAF4;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden; padding: 0;
+  background: linear-gradient(180deg, #FDF8F2 0%, #F7F0E8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
 }
-
-.home-hero-deco::before { display: none; }
+.home-hero-deco::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 320px;
+  height: 220px;
+  background: radial-gradient(circle at center,
+    rgba(226, 176, 170, 0.34) 0%,
+    rgba(233, 192, 186, 0.22) 38%,
+    rgba(244, 220, 216, 0.10) 62%,
+    rgba(255,255,255,0) 78%);
+  filter: blur(8px);
+  z-index: 0;
+  pointer-events: none;
+}
 
 .hero-logo-img {
   /* Fill the full panel height — larger, more impactful */
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: right center;
   display: block;
-  position: relative; z-index: 1;
-  /* multiply: corrected bg (#fdfaf4) × panel bg (#fdfaf4) = invisible seam */
+  position: relative;
+  z-index: 1;
   mix-blend-mode: multiply;
-  filter: contrast(1.04) saturate(0.95);
-  animation: heroBreathe 9s ease-in-out infinite;
-  transform-origin: center 50%;
+  filter: contrast(1.12) brightness(0.9) saturate(1.02);
+  animation: none;
+  transform-origin: center center;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
-
-.home-hero-deco::after { display: none; }
+.home-hero-deco::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  right: 6px;
+  width: 360px;
+  height: 260px;
+  background: radial-gradient(circle at center,
+    rgba(229, 188, 185, 0.28) 0%,
+    rgba(237, 209, 203, 0.16) 42%,
+    rgba(255,255,255,0) 76%);
+  filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
 
 @keyframes heroBreathe {
   0%, 100% { transform: scale(1) translateY(0);      opacity: 0.90; }
@@ -327,7 +358,9 @@ body.mode-high-contrast .hero-logo-img { mix-blend-mode: normal; }
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 0% 50%, rgba(181,94,40,0.05) 0%, transparent 68%);
+  background:
+    radial-gradient(ellipse at 0% 46%, rgba(181,94,40,0.035) 0%, transparent 66%),
+    radial-gradient(circle at 82% 18%, rgba(228, 194, 186, 0.12) 0%, transparent 30%);
   pointer-events: none;
 }
 
@@ -345,8 +378,12 @@ body.mode-high-contrast .hero-logo-img { mix-blend-mode: normal; }
   to   { opacity: 1; transform: translateY(0); }
 }
 .home-eyebrow::before {
-  content: ''; display: block; width: 28px; height: 1.5px;
-  background: var(--c1); opacity: 0.6; flex-shrink: 0;
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(181,94,40,0.45);
+  flex-shrink: 0;
 }
 
 .home-headline {
@@ -1199,41 +1236,10 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
   }
 }
 
-/* RIGHT BACKGROUND LOGO */
-
-.hero-bg-logo{
-  position: fixed;
-  right: -150px;
-  top: 40px;
-  width: 780px;
-  opacity: 0.16;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero-bg-logo img{
-  width:100%;
-  height:auto;
-  display:block;
-
-  mix-blend-mode: multiply;
-  filter: contrast(0.9) brightness(1.05);
-}
-
-body{
-  position: relative;
-  z-index: 2;
-}
 </style>
 </head>
 <body>
 
-  <!-- BACKGROUND LOGO -->
-<div class="hero-bg-logo" aria-hidden="true">
-  <img src="images/hero-image.svg" alt="">
-</div>
-
-<a href="#main" class="skip-link">Skip to exercises</a>
 <a href="#main" class="skip-link">Skip to exercises</a>
 
 <div class="font-toolbar" role="toolbar" aria-label="Display controls">
