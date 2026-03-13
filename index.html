@@ -1262,9 +1262,16 @@ body.mode-text-only .concept-hero::after { display: none; }
   .concept-page { padding: 16px 16px 40px; max-width: 100%; }
   .breadcrumb { padding: 0 0 16px; }
 
-  /* Hero: stack vertically, hide illustration */
+  /* Hero: stack vertically, illustration below */
   .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-illustration { display: none; }
+  .hero-illustration {
+    display: flex;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    min-height: 160px;
+    padding: 16px;
+  }
+  .hero-illustration svg { max-height: 140px; }
   .hero-content { padding: 20px 20px 18px; }
   .hero-title { font-size: 2rem; }
 
@@ -1336,6 +1343,8 @@ body.mode-text-only .concept-hero::after { display: none; }
   background: var(--text-soft); display: block;
 }
 .found-concepts-label { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-soft); align-self:center; margin-right:4px; }
+
+
 </style>
 </head>
 <body>
@@ -1354,7 +1363,7 @@ body.mode-text-only .concept-hero::after { display: none; }
 <div id="sr-announce" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
 <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()" aria-hidden="true"></div>
-<div class="mobile-topbar">
+<div class="mobile-topbar" role="banner" aria-label="Site header">
   <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="openSidebar()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">&#9776;</button>
   <span class="mobile-topbar-title" aria-hidden="true">Adapted Pilates</span>
 </div>
@@ -1509,7 +1518,7 @@ const M = {
   illus: "supine-knees",
   origin: "Fundamental Pilates pelvic awareness",
   pos: "Lying on your back, knees bent", support: "Both feet flat on mat",
-  tactile: ["Place one hand on your lower belly (below navel) — feel it draw inward as you tilt", "Place other hand under your lower back — feel the space close as the back presses down", "Fingertips on both hip bones — check they stay level throughout"],
+  tactile: ["Place one hand on your lower belly (below navel) and feel it draw inward as you tilt", "Place other hand under your lower back and feel the space close as the back presses down", "Fingertips on both hip bones. Check they stay level throughout"],
   goals: ["Feel the difference between a flat back and a neutral back", "Wake up your deep belly muscles with no balance needed", "Learn to move breath and pelvis together"],
   levels: [
     { lbl:"Basic", name:"Breath Awareness", bg:"var(--basic)",
@@ -1562,7 +1571,7 @@ const M = {
   illus: "bridge",
   origin: "Shoulder Bridge",
   pos: "Lying on back, knees bent 90°", support: "Both feet flat on mat",
-  tactile: ["Press both heels firmly into the mat — weight through heels, not toes", "Feel each vertebra peel off the mat one at a time as you curl upward", "At the top: place one hand on your hip bones to confirm they are level"],
+  tactile: ["Press both heels firmly into the mat, keeping weight through heels, not toes", "Feel each vertebra peel off the mat one at a time as you curl upward", "At the top: place one hand on your hip bones to confirm they are level"],
   goals: ["Strengthen your glutes and back of thighs for climbing stairs", "Learn to peel your spine off the mat one piece at a time", "Counter the stiffness that comes from sitting too long"],
   levels: [
     { lbl:"Basic", name:"Small Lift", bg:"var(--basic)",
@@ -1615,7 +1624,7 @@ const M = {
   illus: "shoulder-bridge",
   origin: "Shoulder Bridge: sustained hold",
   pos: "Lying on back, bridge position", support: "Both feet flat on mat",
-  tactile: ["Both feet pressing firmly and evenly — notice equal pressure through both heels", "One hand on hip bones during marching — they must stay perfectly level", "Single-leg level: feel the standing leg working harder — hips stay absolutely level"],
+  tactile: ["Both feet pressing firmly and evenly and notice equal pressure through both heels", "One hand on hip bones during marching. They must stay perfectly level", "Single-leg level: feel the standing leg working harder. Hips stay absolutely level"],
   goals: ["Build glute endurance for walking longer distances", "Keep hips level when one leg lifts", "Get steadier on your feet in daily life"],
   levels: [
     { lbl:"Basic", name:"Isometric Hold", bg:"var(--basic)",
@@ -1668,7 +1677,7 @@ const M = {
   illus: "heel-slide",
   origin: "Single Leg Stretch",
   pos: "Lying on back, knees bent", support: "Both feet flat, full back contact",
-  tactile: ["One hand on lower belly — feel it stay firm as the leg slides", "Other hand under lower back — the space must stay closed throughout the slide", "Feel the heel staying in contact with the mat the whole time as it glides"],
+  tactile: ["One hand on lower belly and feel it stay firm as the leg slides", "Other hand under lower back. The space must stay closed throughout the slide", "Feel the heel staying in contact with the mat the whole time as it glides"],
   goals: ["Keep your core strong while one leg moves on its own", "Loosen hip flexors tightened by sitting", "Learn to move your leg without rocking your pelvis"],
   levels: [
     { lbl:"Basic", name:"Short Slide", bg:"var(--basic)",
@@ -1721,7 +1730,7 @@ const M = {
   illus: "tabletop",
   origin: "Dead Bug",
   pos: "Lying on back, legs in tabletop", support: "Both arms by sides",
-  tactile: ["One hand on lower belly — it must stay firm as the knee lifts", "Feel the shin become parallel to the ceiling — right angle at hip and knee", "Lower back stays connected to the mat — no gap under your lower back"],
+  tactile: ["One hand on lower belly. It must stay firm as the knee lifts", "Feel the shin become parallel to the ceiling. Right angle at hip and knee", "Lower back stays connected to the mat. No gap under your lower back"],
   goals: ["Strengthen hip flexors in a safe, supported position", "Hold your core firm while a leg lifts", "Build body awareness of where your knee is in space"],
   levels: [
     { lbl:"Basic", name:"Single Knee Lift", bg:"var(--basic)",
@@ -1774,7 +1783,7 @@ const M = {
   illus: "dead-bug",
   origin: "Dead Bug / Anti-extension core",
   pos: "Lying on back, legs in tabletop", support: "Both arms reaching to ceiling",
-  tactile: ["Feel your ribs — they must stay heavy on the mat as the arm reaches overhead", "Lower back space under your hand stays the same throughout the movement", "Extended leg hovers just above the mat — feel the core effort required"],
+  tactile: ["Feel your ribs. They must stay heavy on the mat as the arm reaches overhead", "Lower back space under your hand stays the same throughout the movement", "Extended leg hovers just above the mat and feel the core effort required"],
   goals: ["Challenge your core as opposite arm and leg reach out", "Build the cross-body coordination used in walking", "Strengthen deep core muscles under a moving load"],
   levels: [
     { lbl:"Basic", name:"Arms Only", bg:"var(--basic)",
@@ -1827,7 +1836,7 @@ const M = {
   illus: "fallout",
   origin: "Hip stabilization / Frog",
   pos: "Lying on back, knees bent", support: "Both feet flat on mat",
-  tactile: ["Fingertips on both hip bones — they must stay absolutely level as the knee drops", "Feel the inner thigh gently stretching as the knee falls outward", "Sole of foot stays flat on the mat — do not let it roll or lift"],
+  tactile: ["Fingertips on both hip bones. They must stay absolutely level as the knee drops", "Feel the inner thigh gently stretching as the knee falls outward", "Sole of foot stays flat on the mat. Do not let it roll or lift"],
   goals: ["Keep your pelvis perfectly still as the knee drops out", "Gently open the hip and inner thigh", "Relieve tightness from sitting or limited movement"],
   levels: [
     { lbl:"Basic", name:"Small Range", bg:"var(--basic)",
@@ -1880,7 +1889,7 @@ const M = {
   illus: "leg-ext",
   origin: "Single Leg Stretch / Leg Circle",
   pos: "Lying on back, legs in tabletop", support: "Arms by sides",
-  tactile: ["Hand on shin of the bent leg — use it as your anchor reference point", "Lower back must not arch as the straight leg extends — feel the mat contact", "Extended leg reaches to about 45 degrees from the mat — feel the core working"],
+  tactile: ["Hand on shin of the bent leg. Use it as your anchor reference point", "Lower back must not arch as the straight leg extends and feel the mat contact", "Extended leg reaches to about 45 degrees from the mat and feel the core working"],
   goals: ["Strengthen hip flexors as the leg reaches away", "Keep the core stable against the weight of an extended leg", "Build leg and core strength for confident movement"],
   levels: [
     { lbl:"Basic", name:"With Hand Support", bg:"var(--basic)",
@@ -1934,7 +1943,7 @@ const M = {
   illus: "roll-up-prep",
   origin: "Roll Up",
   pos: "Lying on back, knees bent", support: "Both feet flat on mat",
-  tactile: ["Gently press lower back toward the mat — feel this as your anchor throughout", "One hand behind your head to support it — feel the weight of the head in your hand", "Feel the deep belly scoop inward as you curl up — not a crunch from the surface"],
+  tactile: ["Gently press lower back toward the mat and feel this as your anchor throughout", "One hand behind your head to support it and feel the weight of the head in your hand", "Feel the deep belly scoop inward as you curl up. Not a crunch from the surface"],
   goals: ["Strengthen your deep belly muscles through gentle curl-up", "Build the core endurance needed to sit up from lying", "Develop awareness of spinal flexion from a safe position"],
   levels: [
     { lbl:"Basic", name:"Head and Shoulder Lift", bg:"var(--basic)",
@@ -1987,7 +1996,7 @@ const M = {
   illus: "cat-cow",
   origin: "Cat Stretch",
   pos: "On hands and knees", support: "Both hands and both knees",
-  tactile: ["Hands under shoulders, knees under hips — feel this four-point foundation", "Place one hand on your mid-back — feel it round up in cat and arch down in cow", "Feel each spinal segment move in sequence from tailbone to neck"],
+  tactile: ["Hands under shoulders, knees under hips and feel this four-point foundation", "Place one hand on your mid-back and feel it round up in cat and arch down in cow", "Feel each spinal segment move in sequence from tailbone to neck"],
   goals: ["Warm up the whole spine from tailbone to neck", "Ease upper back stiffness from forward-leaning posture", "Learn to feel each part of your spine moving separately"],
   levels: [
     { lbl:"Basic", name:"Slow & Segmented", bg:"var(--basic)",
@@ -2040,7 +2049,7 @@ const M = {
   illus: "bird-dog",
   origin: "Swimming / Bird Dog",
   pos: "On hands and knees", support: "Three or two points of contact",
-  tactile: ["Feel the hip of the working leg stay level — do not let it hike or drop", "Hand on lower back to confirm it stays neutral as the arm or leg extends", "Extended arm reaches to shoulder height — feel the shoulder blade stay down"],
+  tactile: ["Feel the hip of the working leg stay level. Do not let it hike or drop", "Hand on lower back to confirm it stays neutral as the arm or leg extends", "Extended arm reaches to shoulder height and feel the shoulder blade stay down"],
   goals: ["Strengthen your back, glute, and core all at once", "Keep your trunk rock-solid while arms and legs reach", "Build the coordination your body uses when you walk"],
   levels: [
     { lbl:"Basic", name:"Arm Reach Only", bg:"var(--basic)",
@@ -2093,7 +2102,7 @@ const M = {
   illus: "sphinx",
   origin: "Swan",
   pos: "Lying face down", support: "Forearms or hands on mat",
-  tactile: ["Forearms pressing into the mat — feel equal pressure through both elbows", "Feel the work between your shoulder blades, not in your lower back", "Pelvis stays heavy and pressed down — no gap between hip and mat"],
+  tactile: ["Forearms pressing into the mat and feel equal pressure through both elbows", "Feel the work between your shoulder blades, not in your lower back", "Pelvis stays heavy and pressed down. No gap between hip and mat"],
   goals: ["Open the chest and strengthen the upper back", "Counter the forward rounding that comes from cane or guide dog use", "Build shoulder blade control and awareness"],
   levels: [
     { lbl:"Basic", name:"Small Chest Lift", bg:"var(--basic)",
@@ -2146,7 +2155,7 @@ const M = {
   illus: "spine-stretch",
   origin: "Spine Stretch Forward",
   pos: "Seated on mat, legs extended", support: "Sitting bones on mat",
-  tactile: ["Sit tall on both sitting bones — feel equal weight on both sides", "Place one hand on your lower back to feel the sequential rounding forward", "Feel the crown of your head reaching forward and down, not just your chest"],
+  tactile: ["Sit tall on both sitting bones and feel equal weight on both sides", "Place one hand on your lower back to feel the sequential rounding forward", "Feel the crown of your head reaching forward and down, not just your chest"],
   goals: ["Gently lengthen the back of your legs and lower back", "Practice growing taller before folding forward", "Develop awareness of how your spine stacks and curves"],
   levels: [
     { lbl:"Basic", name:"Upper Spine Only", bg:"var(--basic)",
@@ -2199,7 +2208,7 @@ const M = {
   illus: "seated-rotation",
   origin: "Spine Twist / Saw",
   pos: "Seated on mat or chair", support: "Sitting bones grounded",
-  tactile: ["Sitting bones press firmly down — they must not lift as you rotate", "Arms extend to sides at shoulder height — feel them stay level throughout", "Feel the rotation happening in your mid-back ribs, not your lower back"],
+  tactile: ["Sitting bones press firmly down. They must not lift as you rotate", "Arms extend to sides at shoulder height and feel them stay level throughout", "Feel the rotation happening in your mid-back ribs, not your lower back"],
   goals: ["Rotate your mid-back safely for turning in daily life", "Improve rib mobility for easier deeper breathing", "Grow taller as you twist"],
   levels: [
     { lbl:"Basic", name:"Small Turn", bg:"var(--basic)",
@@ -2252,7 +2261,7 @@ const M = {
   illus: "side-bend",
   origin: "Mermaid",
   pos: "Seated cross-legged or on chair", support: "One hand on mat, one arm overhead",
-  tactile: ["Bottom sitting bone stays heavy on the mat — do not let it lift as you bend", "Feel the lengthening along the side of your ribs as you reach overhead", "Bottom hand presses into mat to deepen the stretch — feel the opposition"],
+  tactile: ["Bottom sitting bone stays heavy on the mat. Do not let it lift as you bend", "Feel the lengthening along the side of your ribs as you reach overhead", "Bottom hand presses into mat to deepen the stretch and feel the opposition"],
   goals: ["Lengthen the side of your waist and release tension", "Improve left-right symmetry in your posture", "Open the spaces between your ribs for easier breathing"],
   levels: [
     { lbl:"Basic", name:"Small Side Bend", bg:"var(--basic)",
@@ -2305,7 +2314,7 @@ const M = {
   illus: "weight-shift",
   origin: "Standing balance fundamentals",
   pos: "Standing behind a sturdy chair", support: "Both hands → one hand → fingertip",
-  tactile: ["Both hands on chair back — feel the chair as your stable reference point", "Feel the pressure shifting between your feet as weight transfers side to side", "At heel lift: feel the ankle become the only point of contact"],
+  tactile: ["Both hands on chair back and feel the chair as your stable reference point", "Feel the pressure shifting between your feet as weight transfers side to side", "At heel lift: feel the ankle become the only point of contact"],
   goals: ["Build standing confidence without visual balance cues", "Feel weight shifting clearly from foot to foot", "Strengthen ankles and feet for steadier walking"],
   levels: [
     { lbl:"Basic", name:"Small Shift: Both Hands", bg:"var(--basic)",
@@ -2358,7 +2367,7 @@ const M = {
   illus: "leg-lift",
   origin: "Standing leg series",
   pos: "Standing beside a chair", support: "Two hands → one hand → near wall",
-  tactile: ["Hand on chair — use it only as a reference touch, not a grip", "Feel the hip of the standing leg staying level — do not let the lifted-side hip drop", "Feel the standing foot pressing evenly through the whole sole"],
+  tactile: ["Hand on chair. Use it only as a reference touch, not a grip", "Feel the hip of the standing leg staying level. Do not let the lifted-side hip drop", "Feel the standing foot pressing evenly through the whole sole"],
   goals: ["Strengthen the hip muscles that keep you stable on one leg", "Build confidence standing and lifting one leg", "Improve hip control for walking, stepping, and stair climbing"],
   levels: [
     { lbl:"Basic", name:"Side leg lift", bg:"var(--basic)",
@@ -2411,7 +2420,7 @@ const M = {
   illus: "leg-circle",
   origin: "Leg Circles",
   pos: "Standing with support", support: "Both hands → one hand → fingertip",
-  tactile: ["Hand lightly on chair back — fingers only, not gripping", "Feel the standing hip staying completely still as the leg circles", "Toes trace a smooth circle — feel the movement initiating from the hip, not the ankle"],
+  tactile: ["Hand lightly on chair back. Fingers only, not gripping", "Feel the standing hip staying completely still as the leg circles", "Toes trace a smooth circle and feel the movement initiating from the hip, not the ankle"],
   goals: ["Open the hip through a full circle of movement", "Balance on one leg while the other moves", "Improve hip mobility for easier walking and turning"],
   levels: [
     { lbl:"Basic", name:"Small Knee Circle", bg:"var(--basic)",
@@ -2464,7 +2473,7 @@ const M = {
   illus: "heel-raise",
   origin: "Footwork / Calf raise",
   pos: "Standing facing a chair", support: "Both hands → one hand → fingertip",
-  tactile: ["Both hands on chair — feel the chair as your stable reference point", "Feel the weight shifting to the balls of your feet as heels lift", "At full height: feel the equal pressure across all five toes"],
+  tactile: ["Both hands on chair and feel the chair as your stable reference point", "Feel the weight shifting to the balls of your feet as heels lift", "At full height: feel the equal pressure across all five toes"],
   goals: ["Strengthen your calves for the push-off in every step", "Build ankle control on different surfaces", "Improve your balance by rising onto the balls of your feet"],
   levels: [
     { lbl:"Basic", name:"Both Feet: Chair Hold", bg:"var(--basic)",
@@ -2517,7 +2526,7 @@ const M = {
   illus: "squat",
   origin: "Pilates footwork / Functional squat",
   pos: "Standing behind a chair", support: "Both hands → one hand → fingertip",
-  tactile: ["Both hands on chair — feel the support as you lower", "Feel your weight staying in your heels as you bend — not shifting to toes", "Feel knees tracking directly over second and third toes, not collapsing inward"],
+  tactile: ["Both hands on chair and feel the support as you lower", "Feel your weight staying in your heels as you bend. Not shifting to toes", "Feel knees tracking directly over second and third toes, not collapsing inward"],
   goals: ["Build the leg strength to get up from chairs easily", "Strengthen knees and hips together in a real-life movement", "Develop control going down as much as coming up"],
   levels: [
     { lbl:"Basic", name:"Small Bend: Both Hands", bg:"var(--basic)",
@@ -2570,7 +2579,7 @@ const M = {
   illus: "wall-sit",
   origin: "Isometric leg strengthening",
   pos: "Back flat against a wall", support: "Wall behind you",
-  tactile: ["Back flat against wall — feel the wall touching lower back, mid-back, and shoulders", "Feel the wall as feedback — if your back peels away, you have gone too deep", "Feel the quads (front of thigh) working — not your lower back"],
+  tactile: ["Back flat against wall and feel the wall touching lower back, mid-back, and shoulders", "Feel the wall as feedback. If your back peels away, you have gone too deep", "Feel the quads (front of thigh) working. Not your lower back"],
   goals: ["Build thigh endurance for sustained standing and walking", "Use the wall as a guide to feel correct knee alignment", "Strengthen your legs for stairs, hills, and daily activities"],
   levels: [
     { lbl:"Basic", name:"High Position: Short Hold", bg:"var(--basic)",
@@ -2623,7 +2632,7 @@ const M = {
   illus: "step-tap",
   origin: "Footwork",
   pos: "Standing with chair nearby", support: "Chair nearby → none",
-  tactile: ["Chair within arm's reach — available but not held", "Feel the weight transfer clearly as each foot steps: one foot becomes heavy, one becomes light", "Feel the foot making full contact with the floor at each tap"],
+  tactile: ["Chair within arm's reach. Available but not held", "Feel the weight transfer clearly as each foot steps: one foot becomes heavy, one becomes light", "Feel the foot making full contact with the floor at each tap"],
   goals: ["Practice stepping sideways in a safe, controlled way", "Build the rhythm and coordination your feet use when navigating spaces", "Strengthen hip muscles for confident direction changes"],
   levels: [
     { lbl:"Basic", name:"Side Tap: Chair", bg:"var(--basic)",
@@ -2676,7 +2685,7 @@ const M = {
   illus: "swan",
   origin: "Swan",
   pos: "Lying face down", support: "Forearms or hands on mat",
-  tactile: ["Forearms or hands pressing into mat — feel equal pressure through both sides", "Feel the work between your shoulder blades as you lift — not in your neck", "Pelvis stays heavy and pressed down — pubic bone does not lift"],
+  tactile: ["Forearms or hands pressing into mat and feel equal pressure through both sides", "Feel the work between your shoulder blades as you lift. Not in your neck", "Pelvis stays heavy and pressed down. Pubic bone does not lift"],
   goals: ["Strengthen your upper back and open your chest", "Build the posture muscles for standing tall while walking", "Develop body awareness of your spine in a face-down position"],
   levels: [
     { lbl:"Basic", name:"Elbows on Mat", bg:"var(--basic)",
@@ -2729,7 +2738,7 @@ const M = {
   illus: "arm-leg-prone",
   origin: "Swimming",
   pos: "Lying face down, arms stretched overhead", support: "Torso and remaining limbs on mat",
-  tactile: ["Forehead rests on mat — feel it as a stable anchor throughout", "Feel the shoulder blade of the lifting arm staying down, not shrugging", "Feel the glute of the lifting leg engage — that is what lifts the leg, not the lower back"],
+  tactile: ["Forehead rests on mat and feel it as a stable anchor throughout", "Feel the shoulder blade of the lifting arm staying down, not shrugging", "Feel the glute of the lifting leg engage. That is what lifts the leg, not the lower back"],
   goals: ["Strengthen glutes, shoulder, and core in one movement", "Build the cross-body coordination your body uses in walking", "Improve awareness of arm and leg position in space"],
   levels: [
     { lbl:"Basic", name:"One Arm Lift", bg:"var(--basic)",
@@ -2782,7 +2791,7 @@ const M = {
   illus: "swimming",
   origin: "Swimming",
   pos: "Lying face down", support: "Torso on mat",
-  tactile: ["Torso stays completely still — feel it as the anchor while limbs move", "Feel opposite arm and leg reaching away from each other in opposite directions", "Feel the small of your back: it must not arch or rock as limbs alternate"],
+  tactile: ["Torso stays completely still and feel it as the anchor while limbs move", "Feel opposite arm and leg reaching away from each other in opposite directions", "Feel the small of your back: it must not arch or rock as limbs alternate"],
   goals: ["Build back and glute endurance through continuous movement", "Coordinate all four limbs the way you do when you walk", "Strengthen the whole back of your body for better posture"],
   levels: [
     { lbl:"Basic", name:"Arms Only", bg:"var(--basic)",
@@ -2835,7 +2844,7 @@ const M = {
   illus: "prone-arm",
   origin: "W-Y-T Exercises / Swimming variation",
   pos: "Lying face down", support: "Full torso on mat",
-  tactile: ["Arms along sides, palms facing up — feel shoulder blades drawing together and down", "Feel the work between your shoulder blades as both arms lift", "Neck stays long and relaxed — feel no tension or shrugging at the shoulders"],
+  tactile: ["Arms along sides, palms facing up and feel shoulder blades drawing together and down", "Feel the work between your shoulder blades as both arms lift", "Neck stays long and relaxed and feel no tension or shrugging at the shoulders"],
   goals: ["Strengthen the muscles between your shoulder blades", "Improve shoulder blade body awareness", "Counter the forward-rounded shoulders from cane use or guide dog handling"],
   levels: [
     { lbl:"Basic", name:"W Position", bg:"var(--basic)",
@@ -2888,7 +2897,7 @@ const M = {
   illus: "prone-leg",
   origin: "Swimming variation / Leg Pull Front prep",
   pos: "Lying face down", support: "Full torso and arms on mat",
-  tactile: ["Pubic bone presses firmly into the mat — feel this as your anchor throughout", "Feel the glute of the lifting leg engage before the leg leaves the mat", "Feel both hip bones pressing equally into the mat — no rocking side to side"],
+  tactile: ["Pubic bone presses firmly into the mat and feel this as your anchor throughout", "Feel the glute of the lifting leg engage before the leg leaves the mat", "Feel both hip bones pressing equally into the mat. No rocking side to side"],
   goals: ["Isolate and strengthen the glute on one side", "Keep the pelvis perfectly still as the leg lifts behind", "Build glute endurance for sustained walking and activity"],
   levels: [
     { lbl:"Basic", name:"Small Lift", bg:"var(--basic)",
@@ -2941,7 +2950,7 @@ const M = {
   illus: "scapular",
   origin: "Shoulder stabilization fundamentals",
   pos: "Seated upright in a chair", support: "Sitting bones on chair, feet on floor",
-  tactile: ["Feel your shoulder blades sliding down your back, away from your ears", "Feel the shoulder blades drawing toward your spine during retraction — like tucking wings", "Feel the deliberate circular path: up, back, down, forward — each direction distinct"],
+  tactile: ["Feel your shoulder blades sliding down your back, away from your ears", "Feel the shoulder blades drawing toward your spine during retraction. Like tucking wings", "Feel the deliberate circular path: up, back, down, forward. Each direction distinct"],
   goals: ["Draw your shoulder blades down and back to reduce neck tension", "Create a stable upper body base for all arm movements", "Develop conscious shoulder blade control without visual feedback"],
   levels: [
     { lbl:"Basic", name:"Depression and Hold", bg:"var(--basic)",
@@ -2994,7 +3003,7 @@ const M = {
   illus: "wall-angel",
   origin: "Wall Angel: postural correction",
   pos: "Standing with back against wall", support: "Wall behind you",
-  tactile: ["Back of head, shoulder blades, and lower back all touching the wall", "Feel the backs of your hands, wrists, and elbows maintain wall contact as arms slide up", "Feel where your back loses wall contact — that is your current range limit"],
+  tactile: ["Back of head, shoulder blades, and lower back all touching the wall", "Feel the backs of your hands, wrists, and elbows maintain wall contact as arms slide up", "Feel where your back loses wall contact. That is your current range limit"],
   goals: ["Experience correct upright posture using the wall as a tactile guide", "Improve shoulder and overhead mobility", "Open the chest and strengthen the muscles that draw shoulders back"],
   levels: [
     { lbl:"Basic", name:"W to Goalpost", bg:"var(--basic)",
@@ -3047,7 +3056,7 @@ const M = {
   illus: "shoulder-rolls",
   origin: "Relaxation and shoulder mobility",
   pos: "Seated or standing, arms relaxed", support: "Seated or standing",
-  tactile: ["Arms hang completely relaxed by your sides — feel the weight of them dropping", "Feel the shoulder blade moving in a full circle: up toward ear, back, down, forward", "Feel the release on the downward sweep — like setting the shoulder into its socket"],
+  tactile: ["Arms hang completely relaxed by your sides and feel the weight of them dropping", "Feel the shoulder blade moving in a full circle: up toward ear, back, down, forward", "Feel the release on the downward sweep. Like setting the shoulder into its socket"],
   goals: ["Release neck and shoulder tension from cane use or sustained forward posture", "Connect breath to movement for a calming effect", "Gently warm up or wind down the upper back and neck"],
   levels: [
     { lbl:"Basic", name:"Slow Shrugs", bg:"var(--basic)",
@@ -3125,7 +3134,7 @@ function renderSidebar() {
   if (!nav) return;
 
   const foundationsHtml = FOUNDATION_META.map(([key, name]) =>
-    `<button class="found-item-btn" data-concept-key="${key}" aria-label="${name} concept" role="listitem">${name}</button>`
+    `<button class="found-item-btn" data-concept-key="${key}" aria-label="${name} concept">${name}</button>`
   ).join('');
 
   const sectionsHtml = SECTION_META.map((section, idx) => {
@@ -3203,11 +3212,30 @@ function renderHome() {
 }
 
 function openFoundations() {
-  const btn = document.getElementById('found-btn') || document.querySelector('.found-btn');
-  if (!btn) return;
-  const list = btn.nextElementSibling;
-  if (list && !list.classList.contains('open')) toggleFound(btn);
-  btn.scrollIntoView({ block: 'nearest' });
+  // Always scroll to the Foundations section visible on the home page
+  const section = document.getElementById('found-home-heading');
+  if (section) {
+    // On mobile, scroll the main container; on desktop use scrollIntoView
+    const mainEl = document.getElementById('main');
+    if (window.innerWidth <= 700 && mainEl) {
+      const offset = section.getBoundingClientRect().top + mainEl.scrollTop - 60;
+      mainEl.scrollTo({ top: offset, behavior: 'smooth' });
+    } else {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    section.setAttribute('tabindex', '-1');
+    setTimeout(() => section.focus(), 400);
+    const a = document.getElementById('sr-announce');
+    if (a) { a.textContent = ''; setTimeout(() => { a.textContent = 'Pilates Foundations section. 8 concepts below.'; }, 500); }
+  }
+  // Also open the sidebar foundations panel on desktop
+  if (window.innerWidth > 700) {
+    const btn = document.getElementById('found-btn') || document.querySelector('.found-btn');
+    if (btn) {
+      const list = btn.nextElementSibling;
+      if (list && !list.classList.contains('open')) toggleFound(btn);
+    }
+  }
 }
 
 function bindUiEvents() {
@@ -3485,7 +3513,12 @@ function goHome() {
   document.querySelectorAll('.move-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.found-item-btn').forEach(b => b.classList.remove('active'));
 
-  homeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (window.innerWidth <= 700) {
+    const mainEl = document.getElementById('main');
+    if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    homeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   setTimeout(() => {
     const h1 = homeEl.querySelector('h1');
     if (h1) { h1.setAttribute('tabindex', '-1'); h1.focus(); }
@@ -3752,7 +3785,12 @@ function showConcept(key) {
     </div>
   `;
 
-  pg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (window.innerWidth <= 700) {
+    const mainEl = document.getElementById('main');
+    if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    pg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   const announcer = document.getElementById('sr-announce');
   if (announcer) {
@@ -3925,6 +3963,8 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
+
 </script>
 
 <!-- KEYBOARD SHORTCUTS PANEL -->
@@ -3943,5 +3983,8 @@ document.addEventListener('click', function(e) {
   <div class="shortcut-row"><span class="shortcut-key">Esc</span><span class="shortcut-desc">Close this panel</span></div>
   <button class="shortcut-close" onclick="closeShortcuts()">Close shortcuts</button>
 </div>
+
+</div>
+
 </body>
 </html>
