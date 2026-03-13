@@ -126,27 +126,22 @@ body {
   margin-bottom: 0;
 }
 
-/* Logo image — small, blended, no background showing */
+/* Logo SVG panel */
 .brand-logo-panel {
-  width: 78px; height: 78px;
+  width: 90px; height: 58px;
   flex-shrink: 0;
   position: relative;
-
-  background: var(--ivory);
+  background: transparent;
 }
 .sidebar-top:hover .brand-logo-panel {
   transform: scale(1.04);
   transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
 }
 
-/* KEY: multiply blend removes the cream bg entirely, figure floats free */
 .brand-logo-img {
-  width: 78px; height: 78px;
-  object-fit: contain;
+  width: 90px; height: 58px;
   display: block;
-  /* multiply: image bg (#fdfaf4) × panel bg (#fdfaf4) = perfectly invisible */
-  mix-blend-mode: multiply;
-  filter: saturate(1.05) contrast(1.02);
+  overflow: visible;
 }
 
 .brand-logo-panel::before,
@@ -686,12 +681,13 @@ body.mode-high-contrast .home-headline em {
   object-fit: contain;
   display: block;
 }
+.illus-img { max-width: 100%; height: auto; object-fit: contain; display: block; }
 .hero-illustration svg { width: 100%; max-height: 148px; }
 
 /* Info chips — key facts */
 .info-strip {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 9px; margin-bottom: 14px;
+  gap: 9px; margin-bottom: 20px;
 }
 .info-chip {
   background: var(--paper); border: 1px solid var(--border);
@@ -1185,14 +1181,6 @@ body.mode-text-only .concept-hero::after { display: none; }
 }
 .shortcut-close:hover { background: #2C2320; }
 
-/* ═══════════════════════════════════════════════════════
-   SEMANTIC ELEMENT RESETS (accessibility - layout only)
-═══════════════════════════════════════════════════════ */
-dl { margin: 0; padding: 0; }
-dt { font-weight: inherit; }
-dd { margin: 0; padding: 0; }
-ol.how-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
-ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
 
 /* ═══════════════════════════════════════════════════════
    REDUCED MOTION
@@ -1205,6 +1193,76 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
   }
 }
 
+
+/* ── MOBILE RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .shell { display: block; height: auto; overflow: visible; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 280px; z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.25s var(--ease-snap);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(26,21,16,0.45); z-index: 199;
+  }
+  .sidebar-overlay.open { display: block; }
+  .mobile-topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .mobile-menu-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 6px; color: var(--text); font-size: 1.3rem;
+    border-radius: 8px; line-height: 1;
+  }
+  .mobile-menu-btn:focus-visible { outline: 2.5px solid var(--c1); }
+  .mobile-topbar-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-style: italic; color: var(--text);
+  }
+  .main { height: auto; overflow: visible; }
+  .home-hero { flex-direction: column; padding: 24px 20px 16px; gap: 12px; }
+  .home-body { padding: 16px 20px 40px; }
+  .home-headline { font-size: 2rem; }
+  .hero { padding: 20px 20px 16px; }
+  dl.info-strip { grid-template-columns: 1fr; margin: 0 20px 14px; }
+  .purpose-block { margin: 0 20px 14px; }
+  .concept-badges { margin: 0 20px 14px; }
+  .level-header { padding: 0 20px; }
+  .level-panel { padding: 20px 20px 24px; }
+  .breadcrumb { padding: 12px 16px; }
+  .section-grid { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  .quick-nav { padding: 12px 20px; flex-wrap: wrap; }
+  .stats-row { padding: 0 20px 16px; }
+  .detail-nav { padding: 16px 20px; }
+}
+@media (min-width: 701px) {
+  .mobile-topbar { display: none; }
+  .sidebar-overlay { display: none !important; }
+}
+
+
+/* ── TACTILE LIST (info-chip) ────────────────────────────────────── */
+.info-chip--full { grid-column: 1 / -1; }
+.tactile-list {
+  list-style: none; margin: 4px 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.tactile-item {
+  padding-left: 13px; position: relative; line-height: 1.5;
+}
+.tactile-item::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--text-soft); display: block;
+}
+.found-concepts-label { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-soft); align-self:center; margin-right:4px; }
 </style>
 </head>
 <body>
@@ -1225,16 +1283,40 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
 <div class="shell">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar" aria-label="Movement navigation. 31 exercises across 5 sections">
+  <aside class="sidebar" id="sidebar" aria-label="Movement navigation. 31 exercises across 5 sections">
     <div class="sidebar-top">
       <div class="brand-lockup">
         <!-- Logo image panel — seamlessly integrated, no border -->
         <div class="brand-logo-panel" aria-hidden="true">
-          <img class="brand-logo-img"
-               src="images/logo.svg"               
-               alt=""
-               role="presentation"
-               draggable="false">
+          <svg class="brand-logo-img" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+            <!-- Outer arc — sage green -->
+            <path d="M 18 108 A 82 82 0 0 1 182 108" fill="none" stroke="#7A9E87" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Inner arc — dusty rose -->
+            <path d="M 30 108 A 70 70 0 0 1 170 108" fill="none" stroke="#C9998A" stroke-width="1" stroke-linecap="round"/>
+            <!-- Left dot -->
+            <circle cx="18" cy="108" r="4" fill="#7A9E87"/>
+            <!-- Right dot -->
+            <circle cx="182" cy="108" r="4" fill="#7A9E87"/>
+            <!-- ADAPTED text -->
+            <text x="100" y="74" text-anchor="middle"
+                  font-family="'DM Sans', sans-serif"
+                  font-size="9" font-weight="500"
+                  letter-spacing="4"
+                  fill="#58504A">ADAPTED</text>
+            <!-- Pilates italic serif -->
+            <text x="100" y="95" text-anchor="middle"
+                  font-family="'Cormorant Garamond', Georgia, serif"
+                  font-size="22" font-weight="400"
+                  font-style="italic"
+                  letter-spacing="1"
+                  fill="#1A1612">Pilates</text>
+            <!-- MOVEMENT LIBRARY text -->
+            <text x="100" y="120" text-anchor="middle"
+                  font-family="'DM Sans', sans-serif"
+                  font-size="6.5" font-weight="500"
+                  letter-spacing="3.5"
+                  fill="#8A8178">MOVEMENT LIBRARY</text>
+          </svg>
         </div>
         <div class="brand-wordmark">
           <div class="brand-name" role="heading" aria-level="1">Adapted Pilates</div>
@@ -1244,101 +1326,7 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
       </div>
     </div>
 
-    <nav class="sidebar-nav" aria-label="Movements">
-      <!-- FOUNDATIONS -->
-      <div class="found-group">
-        <button class="found-btn" onclick="toggleFound(this)" aria-expanded="false" aria-controls="nav-found" aria-label="Pilates Foundations: core concepts">
-          <span class="found-dot" aria-hidden="true"></span>
-          <span class="found-label">Foundations</span>
-          <span class="found-arrow" aria-hidden="true">▶</span>
-        </button>
-        <div class="found-list" id="nav-found" role="list">
-          <button class="found-item-btn" onclick="showConcept('neutral-spine')" aria-label="Neutral Spine concept" role="listitem">Neutral Spine</button>
-          <button class="found-item-btn" onclick="showConcept('neutral-pelvis')" aria-label="Neutral Pelvis concept" role="listitem">Neutral Pelvis</button>
-          <button class="found-item-btn" onclick="showConcept('pilates-breath')" aria-label="Pilates Breathing concept" role="listitem">Pilates Breathing</button>
-          <button class="found-item-btn" onclick="showConcept('powerhouse')" aria-label="Powerhouse &amp; Core concept" role="listitem">Powerhouse &amp; Core</button>
-          <button class="found-item-btn" onclick="showConcept('imprinting')" aria-label="Imprinting concept" role="listitem">Imprinting</button>
-          <button class="found-item-btn" onclick="showConcept('spine-articulation')" aria-label="Spine Articulation concept" role="listitem">Spine Articulation</button>
-          <button class="found-item-btn" onclick="showConcept('scapular-stability')" aria-label="Scapular Stability concept" role="listitem">Scapular Stability</button>
-          <button class="found-item-btn" onclick="showConcept('body-know-how')" aria-label="Your Body Map concept" role="listitem">Your Body Map</button>
-        </div>
-      </div>
-      <div class="sec-group">
-        <button class="sec-btn open" onclick="toggleSec(this)" aria-expanded="true" aria-controls="nav-sec1" aria-label="Section 1: Core Stability. 9 movements. Collapse or expand.">
-          <span class="sec-dot" style="background:#C47B52" aria-hidden="true"></span>
-          <span class="sec-label">Core Stability</span>
-          <span class="sec-arrow" aria-hidden="true">▶</span>
-        </button>
-        <div class="moves-list open" id="nav-sec1">
-          <button class="move-btn" onclick="show('1.1')" aria-label="1.1 Pelvic Tilt"><span class="move-num">1.1</span>Pelvic Tilt</button>
-          <button class="move-btn" onclick="show('1.2')" aria-label="1.2 Pelvic Curl"><span class="move-num">1.2</span>Pelvic Curl</button>
-          <button class="move-btn" onclick="show('1.3')" aria-label="1.3 Shoulder Bridge"><span class="move-num">1.3</span>Shoulder Bridge</button>
-          <button class="move-btn" onclick="show('1.4')" aria-label="1.4 Heel Slide"><span class="move-num">1.4</span>Heel Slide</button>
-          <button class="move-btn" onclick="show('1.5')" aria-label="1.5 Tabletop March"><span class="move-num">1.5</span>Tabletop March</button>
-          <button class="move-btn" onclick="show('1.6')" aria-label="1.6 Dead Bug"><span class="move-num">1.6</span>Dead Bug</button>
-          <button class="move-btn" onclick="show('1.7')" aria-label="1.7 Bent Knee Fallout"><span class="move-num">1.7</span>Bent Knee Fallout</button>
-          <button class="move-btn" onclick="show('1.8')" aria-label="1.8 Supine Leg Extension"><span class="move-num">1.8</span>Leg Extension</button>
-          <button class="move-btn" onclick="show('1.9')" aria-label="1.9 Roll Up Prep"><span class="move-num">1.9</span>Roll Up Prep</button>
-        </div>
-      </div>
-      <div class="sec-group">
-        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec2" aria-label="Section 2: Spinal Mobility. 7 movements. Collapse or expand.">
-          <span class="sec-dot" style="background:#5C8C6E" aria-hidden="true"></span>
-          <span class="sec-label">Spinal Mobility</span>
-          <span class="sec-arrow" aria-hidden="true">▶</span>
-        </button>
-        <div class="moves-list" id="nav-sec2">
-          <button class="move-btn" onclick="show('2.1')" aria-label="2.1 Cat–Cow"><span class="move-num">2.1</span>Cat–Cow</button>
-          <button class="move-btn" onclick="show('2.2')" aria-label="2.2 Bird Dog"><span class="move-num">2.2</span>Bird Dog</button>
-          <button class="move-btn" onclick="show('2.3')" aria-label="2.3 Thoracic Extension"><span class="move-num">2.3</span>Thoracic Extension</button>
-          <button class="move-btn" onclick="show('2.4')" aria-label="2.4 Spine Stretch"><span class="move-num">2.4</span>Spine Stretch</button>
-          <button class="move-btn" onclick="show('2.5')" aria-label="2.5 Seated Rotation"><span class="move-num">2.5</span>Seated Rotation</button>
-          <button class="move-btn" onclick="show('2.6')" aria-label="2.6 Side Bend"><span class="move-num">2.6</span>Side Bend</button>
-        </div>
-      </div>
-      <div class="sec-group">
-        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec3" aria-label="Section 3: Balance and Lower Limb. 7 movements. Collapse or expand.">
-          <span class="sec-dot" style="background:#4A6FA0" aria-hidden="true"></span>
-          <span class="sec-label">Balance &amp; Lower Limb Control</span>
-          <span class="sec-arrow" aria-hidden="true">▶</span>
-        </button>
-        <div class="moves-list" id="nav-sec3">
-          <button class="move-btn" onclick="show('3.1')" aria-label="3.1 Weight Shift"><span class="move-num">3.1</span>Weight Shift</button>
-          <button class="move-btn" onclick="show('3.2')" aria-label="3.2 Standing Leg Lift"><span class="move-num">3.2</span>Standing Leg Lift</button>
-          <button class="move-btn" onclick="show('3.3')" aria-label="3.3 Leg Circle"><span class="move-num">3.3</span>Leg Circle</button>
-          <button class="move-btn" onclick="show('3.4')" aria-label="3.4 Heel Raise"><span class="move-num">3.4</span>Heel Raise</button>
-          <button class="move-btn" onclick="show('3.5')" aria-label="3.5 Mini Squat"><span class="move-num">3.5</span>Mini Squat</button>
-          <button class="move-btn" onclick="show('3.6')" aria-label="3.6 Wall Sit"><span class="move-num">3.6</span>Wall Sit</button>
-          <button class="move-btn" onclick="show('3.7')" aria-label="3.7 Step Tap"><span class="move-num">3.7</span>Step Tap</button>
-        </div>
-      </div>
-      <div class="sec-group">
-        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec4" aria-label="Section 4: Posterior Chain. 5 movements. Collapse or expand.">
-          <span class="sec-dot" style="background:#8C6E52" aria-hidden="true"></span>
-          <span class="sec-label">Posterior Chain &amp; Whole-Body Coordination</span>
-          <span class="sec-arrow" aria-hidden="true">▶</span>
-        </button>
-        <div class="moves-list" id="nav-sec4">
-          <button class="move-btn" onclick="show('4.1')" aria-label="4.1 Swan Prep"><span class="move-num">4.1</span>Swan Prep</button>
-          <button class="move-btn" onclick="show('4.2')" aria-label="4.2 Arm–Leg Lift"><span class="move-num">4.2</span>Arm–Leg Lift</button>
-          <button class="move-btn" onclick="show('4.3')" aria-label="4.3 Slow Swimming"><span class="move-num">4.3</span>Slow Swimming</button>
-          <button class="move-btn" onclick="show('4.4')" aria-label="4.4 Prone Arm Lift"><span class="move-num">4.4</span>Prone Arm Lift</button>
-          <button class="move-btn" onclick="show('4.5')" aria-label="4.5 Prone Leg Lift"><span class="move-num">4.5</span>Prone Leg Lift</button>
-        </div>
-      </div>
-      <div class="sec-group">
-        <button class="sec-btn" onclick="toggleSec(this)" aria-expanded="false" aria-controls="nav-sec5" aria-label="Section 5: Shoulder and Neck Relief. 3 movements. Collapse or expand.">
-          <span class="sec-dot" style="background:#6E6840" aria-hidden="true"></span>
-          <span class="sec-label">Shoulder &amp; Neck Relief</span>
-          <span class="sec-arrow" aria-hidden="true">▶</span>
-        </button>
-        <div class="moves-list" id="nav-sec5">
-          <button class="move-btn" onclick="show('5.1')" aria-label="5.1 Scapular Setting"><span class="move-num">5.1</span>Scapular Setting</button>
-          <button class="move-btn" onclick="show('5.2')" aria-label="5.2 Wall Angel"><span class="move-num">5.2</span>Wall Angel</button>
-          <button class="move-btn" onclick="show('5.3')" aria-label="5.3 Shoulder Rolls"><span class="move-num">5.3</span>Shoulder Rolls</button>
-        </div>
-      </div>
-    </nav>
+    <nav class="sidebar-nav" id="sidebar-nav" aria-label="Movements"></nav>
   </aside>
 
   <!-- MAIN -->
@@ -1354,7 +1342,6 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
           <h1 class="home-headline">Move in a way that<br><em>feels right for you.</em></h1>
           <p class="home-desc">This adaptive Pilates library lets you explore movement safely, build strength, and progress at your own pace. No prior experience needed.</p>
         </div>
-        <!-- Logo image — seamlessly integrated into the hero background -->
         <div class="home-hero-deco" aria-hidden="true">
           <img class="hero-logo-img"
                src ="images/hero-image.svg"
@@ -1364,156 +1351,23 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
         </div>
       </div>
 
-      <!-- QUICK JUMP NAV — visible to all, essential for screen reader users -->
       <nav class="quick-nav" aria-label="Quick navigation. Jump directly to any section">
         <span class="quick-nav-label" aria-hidden="true">Jump to</span>
-        <div class="quick-nav-links" role="list">
-          <button class="quick-nav-btn" onclick="openSec(0)" role="listitem" aria-label="Jump to Section 1: Core Stability, 9 movements">
-            <span class="qn-num" aria-hidden="true">01</span>
-            <span class="qn-name">Core Stability</span>
-          </button>
-          <button class="quick-nav-btn" onclick="openSec(1)" role="listitem" aria-label="Jump to Section 2: Spinal Mobility, 7 movements">
-            <span class="qn-num" aria-hidden="true">02</span>
-            <span class="qn-name">Spinal Mobility</span>
-          </button>
-          <button class="quick-nav-btn" onclick="openSec(2)" role="listitem" aria-label="Jump to Section 3: Balance and Lower Limb, 7 movements">
-            <span class="qn-num" aria-hidden="true">03</span>
-            <span class="qn-name">Balance &amp; Lower Limb Control</span>
-          </button>
-          <button class="quick-nav-btn" onclick="openSec(3)" role="listitem" aria-label="Jump to Section 4: Posterior Chain, 5 movements">
-            <span class="qn-num" aria-hidden="true">04</span>
-            <span class="qn-name">Posterior Chain &amp; Whole-Body Coordination</span>
-          </button>
-          <button class="quick-nav-btn" onclick="openSec(4)" role="listitem" aria-label="Jump to Section 5: Shoulder and Neck Relief, 3 movements">
-            <span class="qn-num" aria-hidden="true">05</span>
-            <span class="qn-name">Shoulder &amp; Neck Relief</span>
-          </button>
-          <button class="quick-nav-btn qn-found" onclick="document.querySelector('.found-btn').click(); document.querySelector('.found-btn').scrollIntoView();" role="listitem" aria-label="Jump to Pilates Foundations: core concepts and principles">
-            <span class="qn-num" aria-hidden="true">✦</span>
-            <span class="qn-name">Foundations</span>
-          </button>
-        </div>
+        <div class="quick-nav-links" id="quick-nav-links" role="list"></div>
       </nav>
 
-      <!-- scrollable home body -->
       <div class="home-body">
+        <div class="stats-row" id="stats-row" role="list" aria-label="Library at a glance"></div>
+        <h2 class="section-intro-lbl">Where would you like to begin today?</h2>
+        <div class="section-grid" id="section-grid" role="list"></div>
 
-      <div class="stats-row" role="list" aria-label="Library at a glance">
-        <div class="stat-card" role="listitem" aria-label="5 focus areas">
-          <div class="stat-num" style="color:#C47B52" aria-hidden="true">5</div>
-          <div class="stat-lbl">Focus Areas</div>
+        <div class="home-found-section" role="region" aria-labelledby="found-home-heading">
+          <div class="home-found-header">
+            <h2 class="home-found-title" id="found-home-heading">Pilates Foundations</h2>
+            <p class="home-found-desc">New to Pilates? Start here. These core concepts underpin every movement in this library. Understanding them will help every exercise feel clearer and safer.</p>
+          </div>
+          <div class="home-found-grid" id="home-found-grid" role="list" aria-label="8 Pilates foundation concepts"></div>
         </div>
-        <div class="stat-card" role="listitem" aria-label="30 guided movements">
-          <div class="stat-num" style="color:#5C8C6E" aria-hidden="true">30</div>
-          <div class="stat-lbl">Guided Movements</div>
-        </div>
-        <div class="stat-card" role="listitem" aria-label="3 levels for every exercise">
-          <div class="stat-num" style="color:#4A6FA0" aria-hidden="true">3</div>
-          <div class="stat-lbl">Levels for Every Exercise</div>
-        </div>
-        <div class="stat-card" role="listitem" aria-label="90 total progressions">
-          <div class="stat-num" style="color:#8C6E52" aria-hidden="true">90</div>
-          <div class="stat-lbl">Ways to Progress</div>
-        </div>
-      </div>
-
-      <h2 class="section-intro-lbl">Where would you like to begin today?</h2>
-      <div class="section-grid" role="list">
-        <button class="sec-card" style="--clr:#C47B52" onclick="openSec(0)"
-          aria-label="Section 1: Foundational Core Stability. 9 movements. Develop core strength and body awareness from the safest supported position, lying on your back. Press to open.">
-          <div class="sec-card-num" aria-hidden="true">Section 01</div>
-          <div class="sec-card-heading" aria-hidden="true">Foundational Core</div>
-          <p aria-hidden="true">Develop core strength and body awareness from the safest supported position: lying on your back.</p>
-          <span class="sec-count" aria-hidden="true">8 movements</span>
-        </button>
-        <button class="sec-card" style="--clr:#5C8C6E" onclick="openSec(1)"
-          aria-label="Section 2: Spinal Mobility and Posture. 7 movements. Gently move the spine in all directions to improve posture, reduce stiffness, and feel taller. Press to open.">
-          <div class="sec-card-num" aria-hidden="true">Section 02</div>
-          <div class="sec-card-heading" aria-hidden="true">Spinal Mobility</div>
-          <p aria-hidden="true">Gently move the spine in all directions to improve posture, reduce stiffness, and feel taller.</p>
-          <span class="sec-count" style="color:#5C8C6E" aria-hidden="true">7 movements</span>
-        </button>
-        <button class="sec-card" style="--clr:#4A6FA0" onclick="openSec(2)"
-          aria-label="Section 3: Balance and Lower Limb Control. 7 movements. Build standing confidence and leg strength with full chair and wall support throughout. Press to open.">
-          <div class="sec-card-num" aria-hidden="true">Section 03</div>
-          <div class="sec-card-heading" aria-hidden="true">Balance &amp; Lower Limb Control</div>
-          <p aria-hidden="true">Build standing confidence and leg strength with full chair and wall support throughout.</p>
-          <span class="sec-count" style="color:#4A6FA0" aria-hidden="true">7 movements</span>
-        </button>
-        <button class="sec-card" style="--clr:#8C6E52" onclick="openSec(3)"
-          aria-label="Section 4: Posterior Chain and Whole-Body Coordination. 5 movements. Strengthen the back of your body: glutes, hamstrings, and spine, from the ground up. Press to open.">
-          <div class="sec-card-num" aria-hidden="true">Section 04</div>
-          <div class="sec-card-heading" aria-hidden="true">Posterior Chain &amp; Whole-Body Coordination</div>
-          <p aria-hidden="true">Strengthen the back of your body: glutes, hamstrings, and spine, from the ground up.</p>
-          <span class="sec-count" style="color:#8C6E52" aria-hidden="true">5 movements</span>
-        </button>
-        <button class="sec-card" style="--clr:#6E6840; grid-column: 1 / -1" onclick="openSec(4)"
-          aria-label="Section 5: Shoulder and Neck Relief. 3 movements. Release chronic tension, correct forward shoulder posture, and restore upper body ease. Press to open.">
-          <div class="sec-card-num" aria-hidden="true">Section 05</div>
-          <div class="sec-card-heading" aria-hidden="true">Shoulder &amp; Neck Relief</div>
-          <p aria-hidden="true">Release chronic tension, correct forward shoulder posture, and restore upper body ease.</p>
-          <span class="sec-count" style="color:#6E6840" aria-hidden="true">3 movements</span>
-        </button>
-      </div>
-
-      <!-- FOUNDATIONS SECTION on home page -->
-      <div class="home-found-section" role="region" aria-labelledby="found-home-heading">
-        <div class="home-found-header">
-          <h2 class="home-found-title" id="found-home-heading">Pilates Foundations</h2>
-          <p class="home-found-desc">New to Pilates? Start here. These core concepts underpin every movement in this library. Understanding them will help every exercise feel clearer and safer.</p>
-        </div>
-        <div class="home-found-grid" role="list" aria-label="8 Pilates foundation concepts">
-          <button class="found-home-card" onclick="showConcept('neutral-spine')" role="listitem"
-            aria-label="Neutral Spine: the foundation of safe movement. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Neutral Spine</span>
-            <span class="fhc-hint">The foundation of safe movement</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('neutral-pelvis')" role="listitem"
-            aria-label="Neutral Pelvis: anchor for core control. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Neutral Pelvis</span>
-            <span class="fhc-hint">Anchor for core control</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('pilates-breath')" role="listitem"
-            aria-label="Pilates Breathing: breath that powers movement. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Pilates Breathing</span>
-            <span class="fhc-hint">Breath that powers movement</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('powerhouse')" role="listitem"
-            aria-label="Powerhouse and Core: your body's centre of strength. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Powerhouse &amp; Core</span>
-            <span class="fhc-hint">Your body's centre of strength</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('imprinting')" role="listitem"
-            aria-label="Imprinting: connecting spine to the mat. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Imprinting</span>
-            <span class="fhc-hint">Connecting spine to the mat</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('spine-articulation')" role="listitem"
-            aria-label="Spine Articulation: moving one vertebra at a time. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Spine Articulation</span>
-            <span class="fhc-hint">Moving one vertebra at a time</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('scapular-stability')" role="listitem"
-            aria-label="Scapular Stability: grounding the shoulder blades. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Scapular Stability</span>
-            <span class="fhc-hint">Grounding the shoulder blades</span>
-          </button>
-          <button class="found-home-card" onclick="showConcept('body-know-how')" role="listitem"
-            aria-label="Your Body Map: building internal body awareness. Press to explore.">
-            <span class="fhc-icon" aria-hidden="true">⊕</span>
-            <span class="fhc-name">Your Body Map</span>
-            <span class="fhc-hint">Building internal body awareness</span>
-          </button>
-        </div>
-      </div>
-
       </div><!-- /home-body -->
     </div>
 
@@ -1532,37 +1386,39 @@ ol.how-steps li.how-step { display: flex; gap: 13px; align-items: flex-start; }
 <script>
 // ─── SVG ILLUSTRATIONS ─────────────────────────────────────────────────────
 
+const imgSvg = (name) => `<img src="images/${name}.svg" alt="" class="illus-img">`;
+
 const ILLUS = {
-  "supine-knees": `<img src="images/supine-knees.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "bridge": `<img src="images/bridge.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "heel-slide": `<img src="images/heel-slide.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "tabletop": `<img src="images/tabletop.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "dead-bug": `<img src="images/dead-bug.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "fallout": `<img src="images/fallout.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "leg-ext": `<img src="images/leg-ext.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "cat-cow": `<img src="images/cat-cow.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "bird-dog": `<img src="images/bird-dog.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "sphinx": `<img src="images/sphinx.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "spine-stretch": `<img src="images/spine-stretch.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "seated-rotation": `<img src="images/seated-rotation.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "side-bend": `<img src="images/side-bend.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "weight-shift": `<img src="images/weight-shift.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "leg-lift": `<img src="images/leg-lift.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "leg-circle": `<img src="images/leg-circle.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "heel-raise": `<img src="images/heel-raise.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "squat": `<img src="images/squat.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "wall-sit": `<img src="images/wall-sit.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "step-tap": `<img src="images/step-tap.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "swan": `<img src="images/swan.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "arm-leg-prone": `<img src="images/arm-leg-prone.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "swimming": `<img src="images/swimming.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "prone-arm": `<img src="images/prone-arm.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "prone-leg": `<img src="images/prone-leg.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "scapular": `<img src="images/scapular.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "wall-angel": `<img src="images/wall-angel.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "shoulder-rolls": `<img src="images/shoulder-rolls.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "shoulder-bridge": `<img src="images/shoulder-bridge.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`,
-  "roll-up": `<img src="images/roll-up.svg" alt="" style="max-width:100%;height:auto;object-fit:contain;display:block;">`
+  "supine-knees": imgSvg("supine-knees"),
+  "bridge": imgSvg("bridge"),
+  "heel-slide": imgSvg("heel-slide"),
+  "tabletop": imgSvg("tabletop"),
+  "dead-bug": imgSvg("dead-bug"),
+  "fallout": imgSvg("fallout"),
+  "leg-ext": imgSvg("leg-ext"),
+  "cat-cow": imgSvg("cat-cow"),
+  "bird-dog": imgSvg("bird-dog"),
+  "sphinx": imgSvg("sphinx"),
+  "spine-stretch": imgSvg("spine-stretch"),
+  "seated-rotation": imgSvg("seated-rotation"),
+  "side-bend": imgSvg("side-bend"),
+  "weight-shift": imgSvg("weight-shift"),
+  "leg-lift": imgSvg("leg-lift"),
+  "leg-circle": imgSvg("leg-circle"),
+  "heel-raise": imgSvg("heel-raise"),
+  "squat": imgSvg("squat"),
+  "wall-sit": imgSvg("wall-sit"),
+  "step-tap": imgSvg("step-tap"),
+  "swan": imgSvg("swan"),
+  "arm-leg-prone": imgSvg("arm-leg-prone"),
+  "swimming": imgSvg("swimming"),
+  "prone-arm": imgSvg("prone-arm"),
+  "prone-leg": imgSvg("prone-leg"),
+  "scapular": imgSvg("scapular"),
+  "wall-angel": imgSvg("wall-angel"),
+  "shoulder-rolls": imgSvg("shoulder-rolls"),
+  "shoulder-bridge": imgSvg("shoulder-bridge"),
+  "roll-up-prep": imgSvg("roll-up-prep")
 };
 
 // ─── MOVEMENT DATA ─────────────────────────────────────────────────────────
@@ -1574,7 +1430,8 @@ const M = {
   illus: "supine-knees",
   origin: "Fundamental Pilates pelvic awareness",
   pos: "Lying on your back, knees bent", support: "Both feet flat on mat",
-  goals: ["Teach your body where neutral and supported spine positions are","Activate deep abdominal muscles without any balance demand","Build breath-movement awareness from a safe, fully supported position","Develop pelvic body awareness without visual feedback"],
+  tactile: ["Place one hand on your lower belly (below navel) — feel it draw inward as you tilt", "Place other hand under your lower back — feel the space close as the back presses down", "Fingertips on both hip bones — check they stay level throughout"],
+  goals: ["Feel the difference between a flat back and a neutral back", "Wake up your deep belly muscles with no balance needed", "Learn to move breath and pelvis together"],
   levels: [
     { lbl:"Basic", name:"Breath Awareness", bg:"var(--basic)",
       steps: [
@@ -1587,7 +1444,8 @@ const M = {
       timing: "5 seconds to tilt · 2 seconds hold · 5 seconds release",
       reps: "5 complete tilts", breathing: "Exhale to press down. Inhale to return to neutral.",
       safety: "Only the pelvis moves. No neck strain or upper back movement.",
-      criteria: "You can clearly feel the difference between 'pressed flat' and 'neutral'. No tension in neck or shoulders."
+      criteria: "You can clearly feel the difference between 'pressed flat' and 'neutral'. No tension in neck or shoulders.",
+      muscle: "Front of your belly, deep stomach muscles",
     },
     { lbl:"Intermediate", name:"With Leg Slide", bg:"var(--inter)",
       steps: [
@@ -1600,7 +1458,8 @@ const M = {
       timing: "4 sec tilt, 3 sec slide out, 2 sec hold, 3 sec slide back, 4 sec release",
       reps: "6 each side (12 total)", breathing: "Exhale to tilt and slide. Natural breathing during hold. Inhale to release.",
       safety: "If lower back lifts off mat as leg extends, shorten the slide distance.",
-      criteria: "Back stays completely flat through all 6 slides. No visible pelvic rocking."
+      criteria: "Back stays completely flat through all 6 slides. No visible pelvic rocking.",
+      muscle: "Deep stomach muscles + front of your hips",
     },
     { lbl:"Advanced", name:"Alternating Slides", bg:"var(--adv)",
       steps: [
@@ -1613,7 +1472,8 @@ const M = {
       timing: "3 seconds per leg transition, continuous",
       reps: "10 alternating slides (5 each leg)", breathing: "Natural and continuous. Find a rhythm that works.",
       safety: "If your back arches at any point, pause, reset, and reduce the slide distance.",
-      criteria: "All 10 slides with back consistently flat. Smooth, steady alternation with no arching."
+      criteria: "All 10 slides with back consistently flat. Smooth, steady alternation with no arching.",
+      muscle: "Deep stomach muscles + front of your hips (held longer)",
     }
   ]
 },
@@ -1623,7 +1483,8 @@ const M = {
   illus: "bridge",
   origin: "Shoulder Bridge",
   pos: "Lying on back, knees bent 90°", support: "Both feet flat on mat",
-  goals: ["Strengthen glutes and hamstrings for walking and stair climbing","Develop sequential spinal movement awareness","Build hip extension strength for standing from chairs","Counter the effects of prolonged sitting","Improve pelvic awareness and lumbar control"],
+  tactile: ["Press both heels firmly into the mat — weight through heels, not toes", "Feel each vertebra peel off the mat one at a time as you curl upward", "At the top: place one hand on your hip bones to confirm they are level"],
+  goals: ["Strengthen your glutes and back of thighs for climbing stairs", "Learn to peel your spine off the mat one piece at a time", "Counter the stiffness that comes from sitting too long"],
   levels: [
     { lbl:"Basic", name:"Small Lift", bg:"var(--basic)",
       steps: [
@@ -1636,7 +1497,8 @@ const M = {
       timing: "5 seconds to curl up · 2 seconds hold · 5 seconds to lower",
       reps: "5 repetitions", breathing: "Exhale to curl up. Hold lightly. Inhale to lower down.",
       safety: "Press through your heels, not your toes. Knees stay aligned over ankles throughout.",
-      criteria: "Sequential peeling motion visible in both directions. Glutes clearly engaged."
+      criteria: "Sequential peeling motion visible in both directions. Glutes clearly engaged.",
+      muscle: "Bottom muscles, back of your thighs",
     },
     { lbl:"Intermediate", name:"Full Bridge", bg:"var(--inter)",
       steps: [
@@ -1649,7 +1511,8 @@ const M = {
       timing: "4 seconds up · 3 seconds hold · 4 seconds down",
       reps: "8 repetitions", breathing: "Exhale to roll up. Breathe naturally at top. Inhale to roll down.",
       safety: "Don't over-arch your lower back at the top. The work should be in your glutes, not your lower back.",
-      criteria: "Straight knee-to-shoulder line. Holds 3 seconds without wobbling. Sequential movement clear in both directions."
+      criteria: "Straight knee-to-shoulder line. Holds 3 seconds without wobbling. Sequential movement clear in both directions.",
+      muscle: "Bottom muscles, back of thighs, core",
     },
     { lbl:"Advanced", name:"Single Leg Extension", bg:"var(--adv)",
       steps: [
@@ -1662,7 +1525,8 @@ const M = {
       timing: "3 seconds to extend · 3 seconds hold · 3 seconds lower",
       reps: "6 each side", breathing: "Exhale to extend leg. Natural during hold. Inhale to lower.",
       safety: "If your hip drops, re-engage your glutes strongly. Reduce range before losing form.",
-      criteria: "Leg extends without hip drop. Bridge holds level for 3 seconds on each side."
+      criteria: "Leg extends without hip drop. Bridge holds level for 3 seconds on each side.",
+      muscle: "Bottom muscles, hip balance muscles (one side)",
     }
   ]
 },
@@ -1672,7 +1536,8 @@ const M = {
   illus: "shoulder-bridge",
   origin: "Shoulder Bridge: sustained hold",
   pos: "Lying on back, bridge position", support: "Both feet flat on mat",
-  goals: ["Build sustained glute endurance for walking longer distances","Keep pelvis level when one leg is unsupported","Strengthen hip stability for daily activities like walking and climbing stairs","Develop pelvic awareness without visual feedback","Train the body to maintain balance as load shifts between legs"],
+  tactile: ["Both feet pressing firmly and evenly — notice equal pressure through both heels", "One hand on hip bones during marching — they must stay perfectly level", "Single-leg level: feel the standing leg working harder — hips stay absolutely level"],
+  goals: ["Build glute endurance for walking longer distances", "Keep hips level when one leg lifts", "Get steadier on your feet in daily life"],
   levels: [
     { lbl:"Basic", name:"Isometric Hold", bg:"var(--basic)",
       steps: [
@@ -1685,7 +1550,8 @@ const M = {
       timing: "Hold 10–15 seconds continuously",
       reps: "3–5 holds with brief rest between", breathing: "Natural breathing throughout. Never hold your breath.",
       safety: "If hamstrings cramp, lower down and walk feet slightly closer to hips before retrying.",
-      criteria: "Holds full 10–15 seconds with stable, level pelvis. Breathes naturally throughout."
+      criteria: "Holds full 10–15 seconds with stable, level pelvis. Breathes naturally throughout.",
+      muscle: "Bottom muscles, back of your thighs",
     },
     { lbl:"Intermediate", name:"Bridge Marching", bg:"var(--inter)",
       steps: [
@@ -1698,7 +1564,8 @@ const M = {
       timing: "3 seconds to lift · 2 seconds hold · 3 seconds lower",
       reps: "8 alternating lifts (4 each foot)", breathing: "Exhale to lift. Inhale to lower.",
       safety: "If hips rock side to side, slow down and focus on glute engagement before lifting.",
-      criteria: "Hip bones stay level through all 8 lifts. No visible lateral pelvic rocking."
+      criteria: "Hip bones stay level through all 8 lifts. No visible lateral pelvic rocking.",
+      muscle: "Bottom muscles + hip balance muscles",
     },
     { lbl:"Advanced", name:"Single Leg Bridge", bg:"var(--adv)",
       steps: [
@@ -1711,7 +1578,8 @@ const M = {
       timing: "3 seconds up · 2 seconds hold · 3 seconds down",
       reps: "6 each side", breathing: "Exhale to bridge up. Inhale to lower.",
       safety: "If hip drops significantly, reduce the range of motion or return to Intermediate level.",
-      criteria: "Body line stays straight throughout. Hip stays level for all reps on each side."
+      criteria: "Body line stays straight throughout. Hip stays level for all reps on each side.",
+      muscle: "Bottom muscles + single-leg hip balance muscles",
     }
   ]
 },
@@ -1719,9 +1587,10 @@ const M = {
   name: "Heel Slide",
   sec: "Core Stability", sn: 1, clr: "#C47B52",
   illus: "heel-slide",
-  origin: "Single Leg Stretch preparation",
+  origin: "Single Leg Stretch",
   pos: "Lying on back, knees bent", support: "Both feet flat, full back contact",
-  goals: ["Keep the spine completely still as one leg moves independently","Strengthen deep core muscles under load","Lengthen hip flexors tightened by prolonged sitting","Improve breath-movement coordination","Develop body awareness of leg position in space without visual feedback"],
+  tactile: ["One hand on lower belly — feel it stay firm as the leg slides", "Other hand under lower back — the space must stay closed throughout the slide", "Feel the heel staying in contact with the mat the whole time as it glides"],
+  goals: ["Keep your core strong while one leg moves on its own", "Loosen hip flexors tightened by sitting", "Learn to move your leg without rocking your pelvis"],
   levels: [
     { lbl:"Basic", name:"Short Slide", bg:"var(--basic)",
       steps: [
@@ -1734,7 +1603,8 @@ const M = {
       timing: "4 seconds to slide out · 2 seconds hold · 4 seconds to return",
       reps: "5 each side (10 total)", breathing: "Exhale to slide out. Natural during hold. Inhale to return.",
       safety: "The heel stays on the mat throughout: it slides but never lifts.",
-      criteria: "Back stays flat through all 5 slides. Smooth, controlled movement. No arching."
+      criteria: "Back stays flat through all 5 slides. Smooth, controlled movement. No arching.",
+      muscle: "Deep stomach muscles, lower belly",
     },
     { lbl:"Intermediate", name:"Full Slide", bg:"var(--inter)",
       steps: [
@@ -1747,7 +1617,8 @@ const M = {
       timing: "3 seconds out · 3 seconds hold · 3 seconds return",
       reps: "8 each side", breathing: "Exhale to extend. Hold. Inhale to return.",
       safety: "If back arches as leg fully extends, shorten the slide until the back stays flat.",
-      criteria: "Near-full extension with flat back. Holds 3 seconds. No arching at any point."
+      criteria: "Near-full extension with flat back. Holds 3 seconds. No arching at any point.",
+      muscle: "Deep stomach muscles + front of your hips",
     },
     { lbl:"Advanced", name:"Continuous Alternating", bg:"var(--adv)",
       steps: [
@@ -1760,7 +1631,8 @@ const M = {
       timing: "3 seconds per leg, continuously alternating",
       reps: "10 alternating slides (5 each leg)", breathing: "Natural and continuous. Find your rhythm.",
       safety: "Stop and reset if back arches. There is no benefit to continuing with poor form.",
-      criteria: "10 slides with back flat throughout. Fluid, unbroken rhythm. No arching at any point."
+      criteria: "10 slides with back flat throughout. Fluid, unbroken rhythm. No arching at any point.",
+      muscle: "Deep stomach muscles + front of your hips (larger range)",
     }
   ]
 },
@@ -1768,9 +1640,10 @@ const M = {
   name: "Tabletop March",
   sec: "Core Stability", sn: 1, clr: "#C47B52",
   illus: "tabletop",
-  origin: "Dead Bug preparation / Hundred preparation",
+  origin: "Dead Bug",
   pos: "Lying on back, legs in tabletop", support: "Both arms by sides",
-  goals: ["Hold legs in the air with a stable, supported core","Build hip flexor strength in a functional bent-knee position","Stabilize the pelvis while legs move independently","Strengthen the deep abdominal muscles for everyday movements"],
+  tactile: ["One hand on lower belly — it must stay firm as the knee lifts", "Feel the shin become parallel to the ceiling — right angle at hip and knee", "Lower back stays connected to the mat — no gap under your lower back"],
+  goals: ["Strengthen hip flexors in a safe, supported position", "Hold your core firm while a leg lifts", "Build body awareness of where your knee is in space"],
   levels: [
     { lbl:"Basic", name:"Single Knee Lift", bg:"var(--basic)",
       steps: [
@@ -1783,7 +1656,8 @@ const M = {
       timing: "4 seconds to lift · 3–5 seconds hold · 4 seconds to lower",
       reps: "5 each side (10 total)", breathing: "Exhale to lift. Breathe naturally during hold. Inhale to lower.",
       safety: "Lower back must not arch when the knee lifts. Stop and reset if it does.",
-      criteria: "Holds tabletop steadily for 3–5 seconds. Pelvis level. No lower back arch."
+      criteria: "Holds tabletop steadily for 3–5 seconds. Pelvis level. No lower back arch.",
+      muscle: "Front of your hips, deep stomach muscles",
     },
     { lbl:"Intermediate", name:"Alternating March", bg:"var(--inter)",
       steps: [
@@ -1796,7 +1670,8 @@ const M = {
       timing: "3 seconds lower · 2 seconds hold · 3 seconds return",
       reps: "8 alternating (4 each foot)", breathing: "Exhale to lower. Inhale to return.",
       safety: "If pelvis rocks as a foot lowers, reduce how far down the foot travels.",
-      criteria: "Pelvis completely stable through 8 alternations. Shins stay parallel to ceiling throughout."
+      criteria: "Pelvis completely stable through 8 alternations. Shins stay parallel to ceiling throughout.",
+      muscle: "Front of your hips + core (both sides)",
     },
     { lbl:"Advanced", name:"Both Knees Together", bg:"var(--adv)",
       steps: [
@@ -1809,7 +1684,8 @@ const M = {
       timing: "4 seconds to lift both · 8 seconds hold · 4 seconds to lower both",
       reps: "6 double knee lifts", breathing: "Exhale to lift. Natural breathing during 8-second hold. Inhale to lower.",
       safety: "Lower immediately if back arches or you feel strain. This is the most demanding variation.",
-      criteria: "Holds 8 seconds with lower back connected to mat. Both shins parallel to ceiling."
+      criteria: "Holds 8 seconds with lower back connected to mat. Both shins parallel to ceiling.",
+      muscle: "Front of your hips + core (both legs at once)",
     }
   ]
 },
@@ -1819,7 +1695,8 @@ const M = {
   illus: "dead-bug",
   origin: "Dead Bug / Anti-extension core",
   pos: "Lying on back, legs in tabletop", support: "Both arms reaching to ceiling",
-  goals: ["Resist spinal extension as limbs reach outward","Coordinate opposite arm and leg movements","Strengthen deep core muscles under dynamic challenge","Build the cross-body coordination that underlies walking and functional movement","Develop body awareness of simultaneous limb movements in space"],
+  tactile: ["Feel your ribs — they must stay heavy on the mat as the arm reaches overhead", "Lower back space under your hand stays the same throughout the movement", "Extended leg hovers just above the mat — feel the core effort required"],
+  goals: ["Challenge your core as opposite arm and leg reach out", "Build the cross-body coordination used in walking", "Strengthen deep core muscles under a moving load"],
   levels: [
     { lbl:"Basic", name:"Arms Only", bg:"var(--basic)",
       steps: [
@@ -1832,7 +1709,8 @@ const M = {
       timing: "4 seconds to reach back · brief hold · 4 seconds to return",
       reps: "5 each arm (10 total)", breathing: "Exhale to reach back. Inhale to return.",
       safety: "If your ribs lift off the mat as the arm reaches back, reduce the range of the reach.",
-      criteria: "Arm reaches overhead without back arching or ribs flaring. Tabletop legs stay completely still."
+      criteria: "Arm reaches overhead without back arching or ribs flaring. Tabletop legs stay completely still.",
+      muscle: "Core, shoulder support muscles",
     },
     { lbl:"Intermediate", name:"Legs Only", bg:"var(--inter)",
       steps: [
@@ -1845,7 +1723,8 @@ const M = {
       timing: "4 seconds to extend · 3 seconds hold · 4 seconds to return",
       reps: "5 each leg (10 total)", breathing: "Exhale to extend. Hold. Inhale to return.",
       safety: "Back arching is the most common error. Raise the extending leg higher to reduce the demand.",
-      criteria: "Leg extends without lower back lifting. Arms stay vertical. Holds 3 seconds."
+      criteria: "Leg extends without lower back lifting. Arms stay vertical. Holds 3 seconds.",
+      muscle: "Core + shoulder + front of your hips",
     },
     { lbl:"Advanced", name:"Full Dead Bug", bg:"var(--adv)",
       steps: [
@@ -1858,7 +1737,8 @@ const M = {
       timing: "4 seconds to extend both · 3–5 seconds hold · 4 seconds to return",
       reps: "8 alternating (4 each diagonal)", breathing: "Exhale to extend both. Hold. Inhale to return.",
       safety: "Stop immediately if lower back lifts from mat. Never sacrifice back position to complete a rep.",
-      criteria: "Full extension with lower back flat throughout. Holds 3–5 seconds. 8 controlled alternations."
+      criteria: "Full extension with lower back flat throughout. Holds 3–5 seconds. 8 controlled alternations.",
+      muscle: "Core + shoulder + front of your hips (no rest)",
     }
   ]
 },
@@ -1866,9 +1746,10 @@ const M = {
   name: "Bent Knee Fallout",
   sec: "Core Stability", sn: 1, clr: "#C47B52",
   illus: "fallout",
-  origin: "Hip stabilization / Frog preparation",
+  origin: "Hip stabilization / Frog",
   pos: "Lying on back, knees bent", support: "Both feet flat on mat",
-  goals: ["Keep the pelvis still as the knee falls outward","Open the hip external rotators safely","Lengthen inner thigh muscles","Improve hip joint mobility and body awareness of leg position","Relieve tightness in the hips from prolonged sitting or limited movement"],
+  tactile: ["Fingertips on both hip bones — they must stay absolutely level as the knee drops", "Feel the inner thigh gently stretching as the knee falls outward", "Sole of foot stays flat on the mat — do not let it roll or lift"],
+  goals: ["Keep your pelvis perfectly still as the knee drops out", "Gently open the hip and inner thigh", "Relieve tightness from sitting or limited movement"],
   levels: [
     { lbl:"Basic", name:"Small Range", bg:"var(--basic)",
       steps: [
@@ -1881,7 +1762,8 @@ const M = {
       timing: "5 seconds to fall · 3 seconds hold · 5 seconds to return",
       reps: "5 each side (10 total)", breathing: "Exhale to let knee fall. Inhale to return.",
       safety: "Stop the range of motion wherever the pelvis begins to tilt. No pain in hip or groin, only gentle stretch.",
-      criteria: "Pelvis completely level (felt with hands) throughout. 5 reps each side with gentle stretch."
+      criteria: "Pelvis completely level (felt with hands) throughout. 5 reps each side with gentle stretch.",
+      muscle: "Inner thigh, hip balance muscles",
     },
     { lbl:"Intermediate", name:"Full Fallout", bg:"var(--inter)",
       steps: [
@@ -1894,7 +1776,8 @@ const M = {
       timing: "5 seconds to fall · 5 seconds hold · 5 seconds to return",
       reps: "6 each side", breathing: "Exhale to open. Inhale into the stretch. Exhale to return.",
       safety: "If pelvis rocks without hand monitoring, return to Basic level for more practice.",
-      criteria: "Full range without hip tilting. Inner thigh clearly working on the return."
+      criteria: "Full range without hip tilting. Inner thigh clearly working on the return.",
+      muscle: "Inner thigh (both sides, alternating)",
     },
     { lbl:"Advanced", name:"Butterfly: Both Knees", bg:"var(--adv)",
       steps: [
@@ -1907,7 +1790,8 @@ const M = {
       timing: "5 seconds open · 5–8 seconds hold · 5 seconds close",
       reps: "8 repetitions", breathing: "Exhale to open. Breathe deeply into stretch. Exhale to close.",
       safety: "If lower back lifts off mat, place hands under your tailbone for gentle support.",
-      criteria: "Both knees open symmetrically to the same depth. Lower back grounded. Deep stretch felt in inner thighs."
+      criteria: "Both knees open symmetrically to the same depth. Lower back grounded. Deep stretch felt in inner thighs.",
+      muscle: "Inner thigh + hip balance muscles (both sides)",
     }
   ]
 },
@@ -1915,9 +1799,10 @@ const M = {
   name: "Supine Leg Extension",
   sec: "Core Stability", sn: 1, clr: "#C47B52",
   illus: "leg-ext",
-  origin: "Single Leg Stretch / Leg Circle preparation",
+  origin: "Single Leg Stretch / Leg Circle",
   pos: "Lying on back, legs in tabletop", support: "Arms by sides",
-  goals: ["Strengthen hip flexors as the leg extends away from the body","Keep the core stable against the load of an extended leg","Gently lengthen the hamstrings in a safe, supported position","Develop body awareness of leg position in space without visual feedback","Build the leg and core strength needed for confident upright movement"],
+  tactile: ["Hand on shin of the bent leg — use it as your anchor reference point", "Lower back must not arch as the straight leg extends — feel the mat contact", "Extended leg reaches to about 45 degrees from the mat — feel the core working"],
+  goals: ["Strengthen hip flexors as the leg reaches away", "Keep the core stable against the weight of an extended leg", "Build leg and core strength for confident movement"],
   levels: [
     { lbl:"Basic", name:"With Hand Support", bg:"var(--basic)",
       steps: [
@@ -1930,7 +1815,8 @@ const M = {
       timing: "4 seconds to extend · 3 seconds hold · 4 seconds to bend",
       reps: "5 each side (10 total)", breathing: "Exhale to extend. Hold. Inhale to bend.",
       safety: "Only go as straight as feels comfortable. Tight hamstrings will limit range. This is normal.",
-      criteria: "Smooth extension with hand support. Holds 3 seconds without compensating."
+      criteria: "Smooth extension with hand support. Holds 3 seconds without compensating.",
+      muscle: "Core, front of your hip (one leg)",
     },
     { lbl:"Intermediate", name:"No Hand Support", bg:"var(--inter)",
       steps: [
@@ -1943,7 +1829,8 @@ const M = {
       timing: "4 seconds to extend · 5 seconds hold · 4 seconds to return",
       reps: "6 each side", breathing: "Exhale to extend. Natural during hold. Inhale to return.",
       safety: "Back arching is the signal to raise the leg higher, not to lower it further.",
-      criteria: "Extends without lower back arching. Holds 5 seconds without hand support."
+      criteria: "Extends without lower back arching. Holds 5 seconds without hand support.",
+      muscle: "Core + front of your hips (alternating)",
     },
     { lbl:"Advanced", name:"Both Legs Together", bg:"var(--adv)",
       steps: [
@@ -1956,7 +1843,8 @@ const M = {
       timing: "4 seconds to extend both · 3 seconds hold · 4 seconds to return",
       reps: "8 repetitions", breathing: "Exhale to extend both. Natural during hold. Inhale to return.",
       safety: "Stop immediately if back arches. This is the most demanding supine core exercise.",
-      criteria: "Both legs extend at 45° with lower back completely flat. Holds 3 seconds."
+      criteria: "Both legs extend at 45° with lower back completely flat. Holds 3 seconds.",
+      muscle: "Core + front of your hips (both legs)",
     }
   ]
 },
@@ -1964,10 +1852,11 @@ const M = {
 "1.9": {
   name: "Roll Up Prep",
   sec: "Core Stability", sn: 1, clr: "#C47B52",
-  illus: "supine-knees",
-  origin: "Roll Up / Teaser preparation",
+  illus: "roll-up-prep",
+  origin: "Roll Up",
   pos: "Lying on back, knees bent", support: "Both feet flat on mat",
-  goals: ["Strengthen the deep abdominal muscles through spinal flexion","Develop sequential spinal articulation moving upward from the supine position","Build the abdominal endurance needed for confident upright sitting and rising","Integrate pelvic stability with controlled upper body movement","Improve postural awareness and trunk flexion strength for daily activities"],
+  tactile: ["Gently press lower back toward the mat — feel this as your anchor throughout", "One hand behind your head to support it — feel the weight of the head in your hand", "Feel the deep belly scoop inward as you curl up — not a crunch from the surface"],
+  goals: ["Strengthen your deep belly muscles through gentle curl-up", "Build the core endurance needed to sit up from lying", "Develop awareness of spinal flexion from a safe position"],
   levels: [
     { lbl:"Basic", name:"Head and Shoulder Lift", bg:"var(--basic)",
       steps: [
@@ -1980,7 +1869,8 @@ const M = {
       timing: "4 seconds to lift · 2 seconds hold · 4 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to lift. Hold. Inhale to lower.",
       safety: "If your neck strains or chin juts forward, reduce the range. Only lift as far as a piece of fruit could fit under the chin. Never pull on your neck.",
-      criteria: "Head lifts cleanly 8 times with no neck tension. Lower back stays pressed throughout. Belly draws inward consistently."
+      criteria: "Head lifts cleanly 8 times with no neck tension. Lower back stays pressed throughout. Belly draws inward consistently.",
+      muscle: "Deep belly, front of your neck",
     },
     { lbl:"Intermediate", name:"Upper Body Curl", bg:"var(--inter)",
       steps: [
@@ -1993,7 +1883,8 @@ const M = {
       timing: "4 seconds to curl up · 2 seconds hold · 5 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to curl up. Inhale to lower back down.",
       safety: "Hands cradle the head for support. Never pull on the neck. If neck strain occurs, return to Basic. Lower back must not arch or lift from the mat.",
-      criteria: "8 controlled reps with visible shoulder blade lift. No neck strain. Lower back stays imprinted throughout. Slow, controlled descent."
+      criteria: "8 controlled reps with visible shoulder blade lift. No neck strain. Lower back stays imprinted throughout. Slow, controlled descent.",
+      muscle: "Deep belly + upper stomach muscles",
     },
     { lbl:"Advanced", name:"Half Roll-Up with Arm Reach", bg:"var(--adv)",
       steps: [
@@ -2006,17 +1897,19 @@ const M = {
       timing: "3 seconds to curl up · 3 seconds hold · 5 seconds to lower",
       reps: "6 repetitions", breathing: "Exhale to curl and reach. Inhale to lower with control.",
       safety: "Never use momentum. If the lowering phase cannot be controlled, return to Intermediate. Lower back must not leave the mat at any point.",
-      criteria: "6 controlled reps with full upper body lift and arm reach. No momentum. Smooth articulation in both directions. No neck strain."
+      criteria: "6 controlled reps with full upper body lift and arm reach. No momentum. Smooth articulation in both directions. No neck strain.",
+      muscle: "Full stomach muscle chain",
     }
   ]
 },
 "2.1": {
   name: "Cat–Cow",
-  sec: "Spinal Mobility", sn: 2, clr: "#5C8C6E",
+  sec: "Spinal Mobility & Posture Control", sn: 2, clr: "#5C8C6E",
   illus: "cat-cow",
   origin: "Cat Stretch",
   pos: "On hands and knees", support: "Both hands and both knees",
-  goals: ["Move the spine in both forward and backward directions","Improve posture and spinal self-awareness","Coordinate breath with movement","Warm up the entire spine before exercise","Reduce upper back stiffness common with forward-leaning postures"],
+  tactile: ["Hands under shoulders, knees under hips — feel this four-point foundation", "Place one hand on your mid-back — feel it round up in cat and arch down in cow", "Feel each spinal segment move in sequence from tailbone to neck"],
+  goals: ["Warm up the whole spine from tailbone to neck", "Ease upper back stiffness from forward-leaning posture", "Learn to feel each part of your spine moving separately"],
   levels: [
     { lbl:"Basic", name:"Slow & Segmented", bg:"var(--basic)",
       steps: [
@@ -2029,7 +1922,8 @@ const M = {
       timing: "6 seconds to round into cat · pause · 6 seconds to arch into cow",
       reps: "5 cycles", breathing: "Exhale into cat (rounding). Inhale into cow (arching).",
       safety: "No sharp pain anywhere in the spine. Keep the arch in cow gentle. Do not force it.",
-      criteria: "You can feel movement traveling through different sections of your spine. Clear difference between the two positions."
+      criteria: "You can feel movement traveling through different sections of your spine. Clear difference between the two positions.",
+      muscle: "Back muscles along your spine, core",
     },
     { lbl:"Intermediate", name:"Flowing", bg:"var(--inter)",
       steps: [
@@ -2042,7 +1936,8 @@ const M = {
       timing: "4 seconds each direction, continuous flow",
       reps: "8 cycles", breathing: "Exhale: cat. Inhale: cow. Keep going without pausing.",
       safety: "Smooth and controlled at all times. No forcing or jerking into range.",
-      criteria: "Continuous flowing movement for 8 cycles. Breath and motion are fully in sync."
+      criteria: "Continuous flowing movement for 8 cycles. Breath and motion are fully in sync.",
+      muscle: "Back muscles + core + hip balance muscles",
     },
     { lbl:"Advanced", name:"With Weight Shift", bg:"var(--adv)",
       steps: [
@@ -2055,17 +1950,19 @@ const M = {
       timing: "3 seconds each direction with coordinated weight shift",
       reps: "10 cycles", breathing: "Exhale: cat + rock back. Inhale: cow + rock forward.",
       safety: "If wrists tire, return to hands-only cat-cow. Never sacrifice wrist position.",
-      criteria: "Weight shift and spinal wave are coordinated. Smooth and continuous for all 10 cycles."
+      criteria: "Weight shift and spinal wave are coordinated. Smooth and continuous for all 10 cycles.",
+      muscle: "Full back muscles + core",
     }
   ]
 },
 "2.2": {
   name: "Bird Dog",
-  sec: "Spinal Mobility", sn: 2, clr: "#5C8C6E",
+  sec: "Spinal Mobility & Posture Control", sn: 2, clr: "#5C8C6E",
   illus: "bird-dog",
   origin: "Swimming / Bird Dog",
   pos: "On hands and knees", support: "Three or two points of contact",
-  goals: ["Coordinate opposite arm and leg working together","Keep the trunk completely stable while limbs reach","Strengthen back, glutes, and hamstrings together","Build the cross-body coordination essential for walking","Improve balance on a reduced base of support"],
+  tactile: ["Feel the hip of the working leg stay level — do not let it hike or drop", "Hand on lower back to confirm it stays neutral as the arm or leg extends", "Extended arm reaches to shoulder height — feel the shoulder blade stay down"],
+  goals: ["Strengthen your back, glute, and core all at once", "Keep your trunk rock-solid while arms and legs reach", "Build the coordination your body uses when you walk"],
   levels: [
     { lbl:"Basic", name:"Arm Reach Only", bg:"var(--basic)",
       steps: [
@@ -2078,7 +1975,8 @@ const M = {
       timing: "4 seconds to extend · 5 seconds hold · 4 seconds to return",
       reps: "4 each arm", breathing: "Exhale to reach. Natural during hold. Inhale to return.",
       safety: "Keep gaze down toward the mat. No neck craning forward.",
-      criteria: "Arm reaches to shoulder height without any trunk rotation. Holds 5 seconds steadily."
+      criteria: "Arm reaches to shoulder height without any trunk rotation. Holds 5 seconds steadily.",
+      muscle: "Core, bottom muscles, shoulder support muscles",
     },
     { lbl:"Intermediate", name:"Leg Extension Only", bg:"var(--inter)",
       steps: [
@@ -2091,7 +1989,8 @@ const M = {
       timing: "4 seconds to extend · 5 seconds hold · 4 seconds to return",
       reps: "6 each leg", breathing: "Exhale to extend. Natural during hold. Inhale to return.",
       safety: "If hamstring cramps, flex your foot (toes toward shin) instead of pointing.",
-      criteria: "Leg reaches hip height with level pelvis. No hip drop. Holds steady for 5 seconds."
+      criteria: "Leg reaches hip height with level pelvis. No hip drop. Holds steady for 5 seconds.",
+      muscle: "Core + bottom + opposite hip balance muscle",
     },
     { lbl:"Advanced", name:"Full Bird Dog", bg:"var(--adv)",
       steps: [
@@ -2104,17 +2003,19 @@ const M = {
       timing: "4 seconds to extend both · 8 seconds hold · 4 seconds to return both",
       reps: "8 alternating (4 each diagonal)", breathing: "Exhale to extend. Natural during hold. Inhale to return.",
       safety: "If lower back arches or hips rotate, lower both limbs and reset to neutral before continuing.",
-      criteria: "Holds 8 seconds with perfect alignment: no wobbling, no hip rotation, no back arching."
+      criteria: "Holds 8 seconds with perfect alignment: no wobbling, no hip rotation, no back arching.",
+      muscle: "Core + bottom muscles + shoulder (faster)",
     }
   ]
 },
 "2.3": {
   name: "Thoracic Extension",
-  sec: "Spinal Mobility", sn: 2, clr: "#5C8C6E",
+  sec: "Spinal Mobility & Posture Control", sn: 2, clr: "#5C8C6E",
   illus: "sphinx",
   origin: "Swan",
   pos: "Lying face down", support: "Forearms or hands on mat",
-  goals: ["Strengthen the muscles between the shoulder blades","Open the chest to counter forward-leaning posture common with cane use","Build upper back strength and endurance","Improve shoulder blade control and awareness","Correct upper back rounding prevalent in people with low vision"],
+  tactile: ["Forearms pressing into the mat — feel equal pressure through both elbows", "Feel the work between your shoulder blades, not in your lower back", "Pelvis stays heavy and pressed down — no gap between hip and mat"],
+  goals: ["Open the chest and strengthen the upper back", "Counter the forward rounding that comes from cane or guide dog use", "Build shoulder blade control and awareness"],
   levels: [
     { lbl:"Basic", name:"Small Chest Lift", bg:"var(--basic)",
       steps: [
@@ -2127,7 +2028,8 @@ const M = {
       timing: "4 seconds to lift · 3 seconds hold · 4 seconds to lower",
       reps: "5 repetitions", breathing: "Inhale to prepare. Exhale to lift. Inhale to lower.",
       safety: "Hips press down throughout. If lower back hurts, lift less. Work comes from upper back.",
-      criteria: "Holds 3 seconds without shaking. Feels effort between shoulder blades, not lower back."
+      criteria: "Holds 3 seconds without shaking. Feels effort between shoulder blades, not lower back.",
+      muscle: "Upper back, chest muscles",
     },
     { lbl:"Intermediate", name:"Cobra Prep", bg:"var(--inter)",
       steps: [
@@ -2140,7 +2042,8 @@ const M = {
       timing: "4 seconds to lift · 5 seconds hold · 4 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "If lower back feels compressed, reduce the lift height. Keep neck long throughout.",
-      criteria: "Holds 5 seconds. Can feel back muscles working more than arms pushing. No lower back discomfort."
+      criteria: "Holds 5 seconds. Can feel back muscles working more than arms pushing. No lower back discomfort.",
+      muscle: "Upper back + shoulder support muscles",
     },
     { lbl:"Advanced", name:"Full Swan Prep", bg:"var(--adv)",
       steps: [
@@ -2153,17 +2056,19 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "10 repetitions", breathing: "Exhale to rise. Natural during hold. Inhale to lower.",
       safety: "Sharp lower back pain means stop immediately. This is a significant spinal extension.",
-      criteria: "Chest and upper belly lift with arms ~70% extended. No lower back discomfort. Back muscles are primary."
+      criteria: "Chest and upper belly lift with arms ~70% extended. No lower back discomfort. Back muscles are primary.",
+      muscle: "Upper back + shoulders (fuller range)",
     }
   ]
 },
 "2.4": {
   name: "Spine Stretch",
-  sec: "Spinal Mobility", sn: 2, clr: "#5C8C6E",
+  sec: "Spinal Mobility & Posture Control", sn: 2, clr: "#5C8C6E",
   illus: "spine-stretch",
   origin: "Spine Stretch Forward",
   pos: "Seated on mat, legs extended", support: "Sitting bones on mat",
-  goals: ["Gently flex the spine forward, releasing tension through the back","Lengthen the hamstrings in a safe seated position","Practice sitting tall and stacking the spine upright","Develop sequential spinal movement awareness","Improve seated posture and spinal mobility for daily life"],
+  tactile: ["Sit tall on both sitting bones — feel equal weight on both sides", "Place one hand on your lower back to feel the sequential rounding forward", "Feel the crown of your head reaching forward and down, not just your chest"],
+  goals: ["Gently lengthen the back of your legs and lower back", "Practice growing taller before folding forward", "Develop awareness of how your spine stacks and curves"],
   levels: [
     { lbl:"Basic", name:"Upper Spine Only", bg:"var(--basic)",
       steps: [
@@ -2176,7 +2081,8 @@ const M = {
       timing: "5 seconds forward · 3 seconds hold · 5 seconds back to tall",
       reps: "5 repetitions", breathing: "Exhale to round forward. Inhale to stack up.",
       safety: "If hamstrings are very tight, place a folded blanket under your hips or bend knees significantly.",
-      criteria: "Upper back rounds clearly without collapsing at hips. Stretch felt between shoulder blades."
+      criteria: "Upper back rounds clearly without collapsing at hips. Stretch felt between shoulder blades.",
+      muscle: "Core, back of thighs, back muscles",
     },
     { lbl:"Intermediate", name:"Full Spine Stretch", bg:"var(--inter)",
       steps: [
@@ -2189,7 +2095,8 @@ const M = {
       timing: "4 seconds to articulate forward · 3 seconds hold · 4 seconds to restack",
       reps: "8 repetitions", breathing: "Exhale to roll forward. Inhale to restack up.",
       safety: "Never bounce or force the stretch. Move only as far as feels good. This should feel releasing, not painful.",
-      criteria: "Sequential movement through all sections of the spine. Visible increase in reach with practice."
+      criteria: "Sequential movement through all sections of the spine. Visible increase in reach with practice.",
+      muscle: "Core + back muscles (deeper stretch)",
     },
     { lbl:"Advanced", name:"With Opposition", bg:"var(--adv)",
       steps: [
@@ -2202,17 +2109,19 @@ const M = {
       timing: "4 seconds forward · 5 seconds with active opposition · 4 seconds to restack",
       reps: "10 repetitions", breathing: "Exhale to fold. Active hold. Inhale to restack.",
       safety: "If sharp pain in the spine, reduce the depth of the fold. Deep flexion should feel releasing, not sharp.",
-      criteria: "Active opposition held for 5 seconds. Deep C-curve without strain. Reaches past feet comfortably."
+      criteria: "Active opposition held for 5 seconds. Deep C-curve without strain. Reaches past feet comfortably.",
+      muscle: "Core + full back muscles",
     }
   ]
 },
 "2.5": {
   name: "Seated Rotation",
-  sec: "Spinal Mobility", sn: 2, clr: "#5C8C6E",
+  sec: "Spinal Mobility & Posture Control", sn: 2, clr: "#5C8C6E",
   illus: "seated-rotation",
   origin: "Spine Twist / Saw",
   pos: "Seated on mat or chair", support: "Sitting bones grounded",
-  goals: ["Rotate the mid-back independently from the lower back","Strengthen trunk rotators for turning safely in daily life","Improve rib cage mobility for easier, deeper breathing","Develop the ability to grow taller while twisting","Improve orientation and body awareness during rotational movements"],
+  tactile: ["Sitting bones press firmly down — they must not lift as you rotate", "Arms extend to sides at shoulder height — feel them stay level throughout", "Feel the rotation happening in your mid-back ribs, not your lower back"],
+  goals: ["Rotate your mid-back safely for turning in daily life", "Improve rib mobility for easier deeper breathing", "Grow taller as you twist"],
   levels: [
     { lbl:"Basic", name:"Small Turn", bg:"var(--basic)",
       steps: [
@@ -2225,7 +2134,8 @@ const M = {
       timing: "4 seconds to rotate · 4 seconds to return",
       reps: "5 each side (alternating)", breathing: "Inhale: sit tall. Exhale: rotate. Inhale: return.",
       safety: "Do not rotate with acute back pain. Keep shoulders relaxed, without hunching.",
-      criteria: "Rotation felt clearly in mid-back. Pelvis stays completely still. Can sit taller while rotating."
+      criteria: "Rotation felt clearly in mid-back. Pelvis stays completely still. Can sit taller while rotating.",
+      muscle: "Mid-back turning muscles, core",
     },
     { lbl:"Intermediate", name:"Full Turn", bg:"var(--inter)",
       steps: [
@@ -2238,7 +2148,8 @@ const M = {
       timing: "3 seconds to rotate · 2 seconds hold · 3 seconds to return",
       reps: "10 alternating (5 each side)", breathing: "Inhale: grow tall. Exhale: rotate fully.",
       safety: "Only go as far as comfortable. Never force rotation.",
-      criteria: "Achieves 60–90° rotation. Sitting taller during twist than at start. Pelvis grounded."
+      criteria: "Achieves 60–90° rotation. Sitting taller during twist than at start. Pelvis grounded.",
+      muscle: "Mid-back + side waist muscles",
     },
     { lbl:"Advanced", name:"With Double Pulse", bg:"var(--adv)",
       steps: [
@@ -2251,17 +2162,19 @@ const M = {
       timing: "3 seconds to rotate · 2 gentle pulses (1 second each) · 3 seconds to return",
       reps: "12 alternating (6 each side)", breathing: "Exhale: rotate. Exhale-Exhale: pulse. Inhale: return.",
       safety: "Pulses are gentle breathing pulses. Never force or jerk. Any pain means remove the pulses.",
-      criteria: "Smooth pulses without losing height. Increased rotation range visible with practice."
+      criteria: "Smooth pulses without losing height. Increased rotation range visible with practice.",
+      muscle: "Mid-back + side waist + shoulder control",
     }
   ]
 },
 "2.6": {
   name: "Side Bend",
-  sec: "Spinal Mobility", sn: 2, clr: "#5C8C6E",
+  sec: "Spinal Mobility & Posture Control", sn: 2, clr: "#5C8C6E",
   illus: "side-bend",
   origin: "Mermaid",
   pos: "Seated cross-legged or on chair", support: "One hand on mat, one arm overhead",
-  goals: ["Lengthen the side of the torso and release lateral tension","Strengthen the oblique muscles for trunk stability","Improve left-right postural symmetry","Open the spaces between ribs for easier breathing","Develop three-dimensional spinal awareness"],
+  tactile: ["Bottom sitting bone stays heavy on the mat — do not let it lift as you bend", "Feel the lengthening along the side of your ribs as you reach overhead", "Bottom hand presses into mat to deepen the stretch — feel the opposition"],
+  goals: ["Lengthen the side of your waist and release tension", "Improve left-right symmetry in your posture", "Open the spaces between your ribs for easier breathing"],
   levels: [
     { lbl:"Basic", name:"Small Side Bend", bg:"var(--basic)",
       steps: [
@@ -2274,7 +2187,8 @@ const M = {
       timing: "5 seconds to bend · 3 seconds hold · 5 seconds to return",
       reps: "4 each side", breathing: "Inhale to grow tall. Exhale to bend. Inhale to return.",
       safety: "The moment one sitting bone lifts, you've gone too far. Reduce range.",
-      criteria: "Pure side bend without rotating. Both sitting bones grounded. Stretch clearly felt along opposite side."
+      criteria: "Pure side bend without rotating. Both sitting bones grounded. Stretch clearly felt along opposite side.",
+      muscle: "Side waist muscles",
     },
     { lbl:"Intermediate", name:"Full Side Bend", bg:"var(--inter)",
       steps: [
@@ -2287,7 +2201,8 @@ const M = {
       timing: "4 seconds to bend · 5 seconds hold · 4 seconds to return",
       reps: "5 each side", breathing: "Inhale: lengthen. Exhale: bend. Breathe into the stretch.",
       safety: "Pure side bend: do not let yourself rotate forward or back as you bend.",
-      criteria: "Full comfortable lateral bend. Holds 5 seconds with deep breathing into the stretch."
+      criteria: "Full comfortable lateral bend. Holds 5 seconds with deep breathing into the stretch.",
+      muscle: "Side waist + hip balance muscle",
     },
     { lbl:"Advanced", name:"Active Return", bg:"var(--adv)",
       steps: [
@@ -2300,7 +2215,8 @@ const M = {
       timing: "4 seconds to bend · 3 seconds hold · 5 seconds active return",
       reps: "8 each side", breathing: "Inhale: lengthen. Exhale: bend. Inhale: active return.",
       safety: "If obliques fatigue quickly, rest between reps. This should never involve compensating.",
-      criteria: "Clearly muscle-powered return, not a fall back to center. 8 smooth reps each side."
+      criteria: "Clearly muscle-powered return, not a fall back to center. 8 smooth reps each side.",
+      muscle: "Side waist + full side muscles",
     }
   ]
 },
@@ -2310,7 +2226,8 @@ const M = {
   illus: "weight-shift",
   origin: "Standing balance fundamentals",
   pos: "Standing behind a sturdy chair", support: "Both hands → one hand → fingertip",
-  goals: ["Build standing confidence and safety without visual balance cues","Develop awareness of weight shifting between feet","Strengthen ankles and foot muscles for stable walking","Improve proprioception, the body's internal sense of position","Reduce fear of losing balance when standing and moving"],
+  tactile: ["Both hands on chair back — feel the chair as your stable reference point", "Feel the pressure shifting between your feet as weight transfers side to side", "At heel lift: feel the ankle become the only point of contact"],
+  goals: ["Build standing confidence without visual balance cues", "Feel weight shifting clearly from foot to foot", "Strengthen ankles and feet for steadier walking"],
   levels: [
     { lbl:"Basic", name:"Small Shift: Both Hands", bg:"var(--basic)",
       steps: [
@@ -2323,7 +2240,8 @@ const M = {
       timing: "4 seconds to shift · 3 seconds hold · 4 seconds back to center",
       reps: "5 each side (10 total)", breathing: "Natural throughout.",
       safety: "Hands on chair at all times. If any dizziness, stop and sit.",
-      criteria: "Can feel pressure increase clearly under weighted foot. No tight grip on chair."
+      criteria: "Can feel pressure increase clearly under weighted foot. No tight grip on chair.",
+      muscle: "Inner thighs, hip balance muscles",
     },
     { lbl:"Intermediate", name:"Near-Single-Leg: One Hand", bg:"var(--inter)",
       steps: [
@@ -2336,7 +2254,8 @@ const M = {
       timing: "4 seconds to shift · 5 seconds hold · 4 seconds to return",
       reps: "5 each side", breathing: "Natural. Avoid holding breath.",
       safety: "The hand is always available to grip. Use it whenever needed. Build from lighter shifts.",
-      criteria: "Near-single-leg stance for 5 seconds with light fingertip touch only."
+      criteria: "Near-single-leg stance for 5 seconds with light fingertip touch only.",
+      muscle: "Hip balance muscles + calf",
     },
     { lbl:"Advanced", name:"Single-Leg: Fingertip", bg:"var(--adv)",
       steps: [
@@ -2349,7 +2268,8 @@ const M = {
       timing: "3 seconds to lift · 10 seconds hold · 3 seconds to lower",
       reps: "4 each side", breathing: "Natural and calm. Find a steady rhythm.",
       safety: "Touching or grabbing support is always fine. Build duration gradually.",
-      criteria: "10 seconds single-leg stance with fingertip only. Minimal sway. Confident."
+      criteria: "10 seconds single-leg stance with fingertip only. Minimal sway. Confident.",
+      muscle: "Hip balance muscles + calf + balance muscles",
     }
   ]
 },
@@ -2359,46 +2279,50 @@ const M = {
   illus: "leg-lift",
   origin: "Standing leg series",
   pos: "Standing beside a chair", support: "Two hands → one hand → near wall",
-  goals: ["Strengthen hip flexors and hip abductors for safer walking","Develop single-leg balance while the other leg moves","Improve hip control and leg position awareness","Build confidence standing on one leg independently","Strengthen the muscles needed for walking, stepping, and stair climbing"],
+  tactile: ["Hand on chair — use it only as a reference touch, not a grip", "Feel the hip of the standing leg staying level — do not let the lifted-side hip drop", "Feel the standing foot pressing evenly through the whole sole"],
+  goals: ["Strengthen the hip muscles that keep you stable on one leg", "Build confidence standing and lifting one leg", "Improve hip control for walking, stepping, and stair climbing"],
   levels: [
-    { lbl:"Basic", name:"Marching in Place", bg:"var(--basic)",
+    { lbl:"Basic", name:"Side leg lift", bg:"var(--basic)",
       steps: [
         "Stand behind the chair with both hands on the backrest. Feet hip-width apart.",
         "Stand tall: ear, shoulder, hip, and ankle in one vertical line.",
-        "Lift your right knee straight up to hip height — like marching in place. Shin hangs down naturally.",
-        "Hold for 3 seconds. Don't lean forward as the knee comes up — stay tall.",
+        "Lift your right leg straight up to hip height. Shin hangs down naturally.",
+        "Hold for 3 seconds. Don't lean forward as the leg comes up. Make sure to stay tall.",
         "Lower your foot with control. Alternate sides for 10 total lifts."
       ],
       timing: "3 seconds to lift · 3 seconds hold · 3 seconds to lower",
       reps: "10 alternating (5 each side)", breathing: "Exhale to lift. Inhale to lower.",
       safety: "Stand tall throughout. Leaning forward is compensation. Keep shoulders over hips.",
-      criteria: "Knee lifts to hip height. Tall posture throughout. Both hands on chair."
+      criteria: "Tall posture throughout. Both hands on chair.",
+      muscle: "Hip balance muscles, bottom muscles",
     },
     { lbl:"Intermediate", name:"One-Hand Hold", bg:"var(--inter)",
       steps: [
         "Stand with one hand resting lightly on the chair. The other arm can rest at your side or on your hip.",
-        "Stand on your right foot. Exhale and lift your left knee to hip height.",
+        "Stand on your right foot. Exhale and lift your left leg to hip height.",
         "Hold for 5 seconds. Standing leg stays straight but not locked. Keep hips level — don't hike the raised hip.",
-        "Lower with control. Complete all 6 reps on the left before switching hands and lifting the right knee.",
+        "Lower with control. Complete all 6 reps on the left before switching hands and lifting the right leg.",
         "Focus on keeping your shoulder directly over your standing hip throughout."
       ],
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "6 each side", breathing: "Exhale to lift. Natural during hold.",
       safety: "Standing leg should be straight but not hyperextended. Keep hips level.",
-      criteria: "5 seconds hold with one hand. Level pelvis. No leaning to the side."
+      criteria: "5 seconds hold with one hand. Level pelvis. No leaning to the side.",
+      muscle: "Hip balance muscles + bottom muscles (harder)",
     },
     { lbl:"Advanced", name:"No Support: Near Wall", bg:"var(--adv)",
       steps: [
         "Stand near a wall — close enough to touch if needed — with no active support.",
         "Find your balance standing on your right foot before lifting the left.",
-        "When ready, exhale and lift your left knee to hip height. Arms can be out to the sides like airplane wings.",
+        "When ready, exhale and lift your left leg to hip height. If you are comfortable, arms can be out to the sides like airplane wings.",
         "Hold for 8–10 seconds. Small ankle adjustments are fine. The goal is controlled, not rigid.",
         "Lower with control. Rest briefly. Alternate sides for 5 reps each."
       ],
       timing: "3 seconds to lift · 8–10 seconds hold · 3 seconds to lower",
       reps: "5 each side", breathing: "Natural. Find a still, calm breath during the hold.",
       safety: "The wall is always there to touch. Using it is smart, not failure.",
-      criteria: "8–10 seconds unsupported. Minimal sway. Confident posture throughout."
+      criteria: "8–10 seconds unsupported. Minimal sway. Confident posture throughout.",
+      muscle: "Full hip balance muscle chain",
     }
   ]
 },
@@ -2408,7 +2332,8 @@ const M = {
   illus: "leg-circle",
   origin: "Leg Circles",
   pos: "Standing with support", support: "Both hands → one hand → fingertip",
-  goals: ["Open the hip joint through a full circular range of motion","Coordinate multiple hip muscles working together","Balance on one leg while the other moves dynamically","Develop proprioceptive awareness of leg position in space","Improve hip mobility for easier walking and turning"],
+  tactile: ["Hand lightly on chair back — fingers only, not gripping", "Feel the standing hip staying completely still as the leg circles", "Toes trace a smooth circle — feel the movement initiating from the hip, not the ankle"],
+  goals: ["Open the hip through a full circle of movement", "Balance on one leg while the other moves", "Improve hip mobility for easier walking and turning"],
   levels: [
     { lbl:"Basic", name:"Small Knee Circle", bg:"var(--basic)",
       steps: [
@@ -2421,7 +2346,8 @@ const M = {
       timing: "2 seconds per circle",
       reps: "5 each direction, each side", breathing: "Natural and rhythmic.",
       safety: "Circles stay small. Don't hike the hip of the circling leg. Standing leg remains stable.",
-      criteria: "Smooth circular motion without pelvic compensation. Standing leg remains stable."
+      criteria: "Smooth circular motion without pelvic compensation. Standing leg remains stable.",
+      muscle: "Hip balance muscles, outer hip",
     },
     { lbl:"Intermediate", name:"Full Leg Circle", bg:"var(--inter)",
       steps: [
@@ -2434,7 +2360,8 @@ const M = {
       timing: "3 seconds per circle",
       reps: "6 each direction, each side", breathing: "Find a rhythm.",
       safety: "No swinging or using momentum. Every part of the circle should be equally controlled.",
-      criteria: "Smooth larger circles with level pelvis. Light fingertip touch on chair only."
+      criteria: "Smooth larger circles with level pelvis. Light fingertip touch on chair only.",
+      muscle: "Hip balance muscles + inner and outer hip",
     },
     { lbl:"Advanced", name:"Unsupported Circles", bg:"var(--adv)",
       steps: [
@@ -2447,7 +2374,8 @@ const M = {
       timing: "3–4 seconds per circle",
       reps: "8 each direction, each side", breathing: "Natural. Use breath to stay calm.",
       safety: "Touch wall whenever needed. Reduce circle size if balance becomes unsteady.",
-      criteria: "8 smooth circles each direction with minimal support. Hips stay level and forward-facing."
+      criteria: "8 smooth circles each direction with minimal support. Hips stay level and forward-facing.",
+      muscle: "Hip balance muscles (full circle)",
     }
   ]
 },
@@ -2457,7 +2385,8 @@ const M = {
   illus: "heel-raise",
   origin: "Footwork / Calf raise",
   pos: "Standing facing a chair", support: "Both hands → one hand → fingertip",
-  goals: ["Strengthen calf muscles for the push-off phase of walking","Build ankle stability and control on varied surfaces","Improve balance through rising onto the balls of the feet","Develop ankle strength for navigating stairs and uneven terrain","Strengthen the foot arches for sustained walking"],
+  tactile: ["Both hands on chair — feel the chair as your stable reference point", "Feel the weight shifting to the balls of your feet as heels lift", "At full height: feel the equal pressure across all five toes"],
+  goals: ["Strengthen your calves for the push-off in every step", "Build ankle control on different surfaces", "Improve your balance by rising onto the balls of your feet"],
   levels: [
     { lbl:"Basic", name:"Both Feet: Chair Hold", bg:"var(--basic)",
       steps: [
@@ -2470,7 +2399,8 @@ const M = {
       timing: "3 seconds to rise · 3 seconds hold · 3 seconds to lower",
       reps: "10 repetitions", breathing: "Exhale to rise. Inhale to lower.",
       safety: "Equal weight through all five toes. Big toe presses down. Ankles stay straight. No rolling.",
-      criteria: "Full heel lift with even weight. Holds 3 seconds. Controlled, slow descent."
+      criteria: "Full heel lift with even weight. Holds 3 seconds. Controlled, slow descent.",
+      muscle: "Calf, front of shin, foot arch",
     },
     { lbl:"Intermediate", name:"Single Leg: Chair Hold", bg:"var(--inter)",
       steps: [
@@ -2483,7 +2413,8 @@ const M = {
       timing: "3 seconds to rise · 5 seconds hold · 3 seconds to lower",
       reps: "8 each side", breathing: "Exhale to rise. Inhale to lower.",
       safety: "Single leg is much more demanding. Quality over height. Reduce range if ankle wobbles.",
-      criteria: "Full single-leg calf raise. Holds 5 seconds. Ankle remains neutral."
+      criteria: "Full single-leg calf raise. Holds 5 seconds. Ankle remains neutral.",
+      muscle: "Calf + balance muscles",
     },
     { lbl:"Advanced", name:"Single Leg: Fingertip Only", bg:"var(--adv)",
       steps: [
@@ -2496,7 +2427,8 @@ const M = {
       timing: "4 seconds to rise · 5 seconds hold · 4 seconds to lower · 2 seconds pause",
       reps: "8 each side", breathing: "Exhale to rise. Inhale to lower.",
       safety: "Fingertip available always. Stop if ankle pain. This is a joint warning, not muscle fatigue.",
-      criteria: "Slow full-range single-leg raise. 5-second hold. Minimal fingertip use."
+      criteria: "Slow full-range single-leg raise. 5-second hold. Minimal fingertip use.",
+      muscle: "Calf + balance muscles (full height)",
     }
   ]
 },
@@ -2506,7 +2438,8 @@ const M = {
   illus: "squat",
   origin: "Pilates footwork / Functional squat",
   pos: "Standing behind a chair", support: "Both hands → one hand → fingertip",
-  goals: ["Build the leg strength needed to stand up from chairs independently","Strengthen knees and hips together in a functional movement pattern","Develop leg power for climbing stairs with confidence","Learn to control the lowering and rising movement safely","Build confidence in the sitting-to-standing transition"],
+  tactile: ["Both hands on chair — feel the support as you lower", "Feel your weight staying in your heels as you bend — not shifting to toes", "Feel knees tracking directly over second and third toes, not collapsing inward"],
+  goals: ["Build the leg strength to get up from chairs easily", "Strengthen knees and hips together in a real-life movement", "Develop control going down as much as coming up"],
   levels: [
     { lbl:"Basic", name:"Small Bend: Both Hands", bg:"var(--basic)",
       steps: [
@@ -2519,7 +2452,8 @@ const M = {
       timing: "4 seconds to lower · 2 seconds hold · 4 seconds to rise",
       reps: "8 repetitions", breathing: "Inhale to lower. Exhale to drive up.",
       safety: "Heels must stay flat on the floor throughout. Knees should never collapse inward.",
-      criteria: "Controlled small squat. Knees track well. Fully upright and glutes squeezed at top."
+      criteria: "Controlled small squat. Knees track well. Fully upright and glutes squeezed at top.",
+      muscle: "Front of thigh, bottom muscles",
     },
     { lbl:"Intermediate", name:"Deeper: One Hand", bg:"var(--inter)",
       steps: [
@@ -2532,7 +2466,8 @@ const M = {
       timing: "3 seconds to lower · 2 seconds hold · 3 seconds to rise",
       reps: "10 repetitions", breathing: "Inhale to lower. Exhale to drive up.",
       safety: "Keep weight in heels throughout. If lower back rounds, sit back more (don't go as deep).",
-      criteria: "60° squat depth. Heels flat throughout. Powerful drive up through heels."
+      criteria: "60° squat depth. Heels flat throughout. Powerful drive up through heels.",
+      muscle: "Front of thigh + bottom muscles (deeper)",
     },
     { lbl:"Advanced", name:"Full Squat: Fingertip", bg:"var(--adv)",
       steps: [
@@ -2545,7 +2480,8 @@ const M = {
       timing: "4 seconds to lower · 3 seconds hold · 4 seconds to rise",
       reps: "10 repetitions", breathing: "Inhale to lower. Exhale to rise.",
       safety: "If knees go well past toes, focus more on sitting hips back. Reduce depth if uncomfortable.",
-      criteria: "Near-parallel thighs with minimal support. Strong powerful rise. Good alignment throughout."
+      criteria: "Near-parallel thighs with minimal support. Strong powerful rise. Good alignment throughout.",
+      muscle: "Front of thigh + bottom muscles (full depth)",
     }
   ]
 },
@@ -2555,7 +2491,8 @@ const M = {
   illus: "wall-sit",
   origin: "Isometric leg strengthening",
   pos: "Back flat against a wall", support: "Wall behind you",
-  goals: ["Build sustained quadriceps endurance for prolonged standing and walking","Strengthen leg muscles using the wall as a safe support and feedback tool","Develop alignment awareness through wall contact as a tactile guide","Improve mental focus and breath control under muscle load","Build the leg strength needed for stairs, walking, and daily activities"],
+  tactile: ["Back flat against wall — feel the wall touching lower back, mid-back, and shoulders", "Feel the wall as feedback — if your back peels away, you have gone too deep", "Feel the quads (front of thigh) working — not your lower back"],
+  goals: ["Build thigh endurance for sustained standing and walking", "Use the wall as a guide to feel correct knee alignment", "Strengthen your legs for stairs, hills, and daily activities"],
   levels: [
     { lbl:"Basic", name:"High Position: Short Hold", bg:"var(--basic)",
       steps: [
@@ -2568,7 +2505,8 @@ const M = {
       timing: "Slide down 5 seconds · hold 10 seconds · slide up 5 seconds",
       reps: "3 holds", breathing: "Natural, steady breathing throughout. Never hold breath.",
       safety: "If knees hurt, slide up higher. Feet should be under knees, not in front of them.",
-      criteria: "10 seconds with flat back and comfortable position. No knee pain."
+      criteria: "10 seconds with flat back and comfortable position. No knee pain.",
+      muscle: "Front of thigh, bottom muscles (wall supported)",
     },
     { lbl:"Intermediate", name:"60 Degree Position: Longer Hold", bg:"var(--inter)",
       steps: [
@@ -2581,7 +2519,8 @@ const M = {
       timing: "Slide down · hold 20–30 seconds · slide back up",
       reps: "3 holds", breathing: "Natural, steady. Find a breathing rhythm to help you hold.",
       safety: "Knee pain means slide up. Thighs shaking is muscle fatigue; stop if form breaks.",
-      criteria: "Holds 20–30 seconds at 60° with flat back. Natural breathing throughout."
+      criteria: "Holds 20–30 seconds at 60° with flat back. Natural breathing throughout.",
+      muscle: "Front of thigh + bottom muscles + core",
     },
     { lbl:"Advanced", name:"Full 90 Degree: Extended Hold", bg:"var(--adv)",
       steps: [
@@ -2594,7 +2533,8 @@ const M = {
       timing: "Slide down · hold 30–60 seconds · slide up",
       reps: "3 holds", breathing: "Calm, rhythmic. Find a pattern that works for you.",
       safety: "90 degrees is maximum. Never go lower. Sharp knee pain means stop immediately.",
-      criteria: "Holds 30–60 seconds at 90°. Good form maintained throughout. Repeatable for 3 holds."
+      criteria: "Holds 30–60 seconds at 90°. Good form maintained throughout. Repeatable for 3 holds.",
+      muscle: "Front of thigh + bottom muscles (one leg)",
     }
   ]
 },
@@ -2602,9 +2542,10 @@ const M = {
   name: "Step Tap",
   sec: "Balance & Lower Limb Control", sn: 3, clr: "#4A6FA0",
   illus: "step-tap",
-  origin: "Footwork / Gait preparation",
+  origin: "Footwork",
   pos: "Standing with chair nearby", support: "Chair nearby → none",
-  goals: ["Practice lateral weight transfer in a controlled, safe environment","Strengthen hip abductors for confident stepping and directional changes","Develop rhythmic coordination of the lower body","Build confidence in moving the feet while standing","Improve the weight-shifting skills needed for walking, turning, and navigating spaces"],
+  tactile: ["Chair within arm's reach — available but not held", "Feel the weight transfer clearly as each foot steps: one foot becomes heavy, one becomes light", "Feel the foot making full contact with the floor at each tap"],
+  goals: ["Practice stepping sideways in a safe, controlled way", "Build the rhythm and coordination your feet use when navigating spaces", "Strengthen hip muscles for confident direction changes"],
   levels: [
     { lbl:"Basic", name:"Side Tap: Chair", bg:"var(--basic)",
       steps: [
@@ -2617,7 +2558,8 @@ const M = {
       timing: "3 seconds to step out · 1 second tap · 3 seconds to return",
       reps: "8 each side", breathing: "Natural. Find a rhythm.",
       safety: "Keep hand on chair. The step is small, about 8 to 10 inches, not a lunge.",
-      criteria: "Controlled weight shift before each tap. Stable return to center. Rhythmic."
+      criteria: "Controlled weight shift before each tap. Stable return to center. Rhythmic.",
+      muscle: "Front of your hips, calf, balance muscles",
     },
     { lbl:"Intermediate", name:"Alternating Tap", bg:"var(--inter)",
       steps: [
@@ -2630,7 +2572,8 @@ const M = {
       timing: "2 seconds out · 2 seconds return, alternating",
       reps: "20 taps (10 each side)", breathing: "Natural rhythm that matches the movement.",
       safety: "Chair always within reach. Pause and reset whenever balance feels uncertain.",
-      criteria: "20 rhythmic taps without needing chair support. Confident return to center each time."
+      criteria: "20 rhythmic taps without needing chair support. Confident return to center each time.",
+      muscle: "Front of your hips + balance + coordination",
     },
     { lbl:"Advanced", name:"Tap + Arm Swing", bg:"var(--adv)",
       steps: [
@@ -2643,7 +2586,8 @@ const M = {
       timing: "2 seconds per tap with coordinated arm swing",
       reps: "20 taps (10 each side)", breathing: "Natural. The movement creates its own rhythm.",
       safety: "Wall behind for backup. Stop if unsafe. Balance before continuity.",
-      criteria: "Coordinated arm-leg opposition throughout. Continuous flowing rhythm. No hesitation."
+      criteria: "Coordinated arm-leg opposition throughout. Continuous flowing rhythm. No hesitation.",
+      muscle: "Front of your hips + full balance muscles",
     }
   ]
 },
@@ -2653,7 +2597,8 @@ const M = {
   illus: "swan",
   origin: "Swan",
   pos: "Lying face down", support: "Forearms or hands on mat",
-  goals: ["Strengthen back extensors along the full length of the spine","Open the chest to counter forward-leaning posture common with cane and guide dog use","Build upper back and glute endurance for sustained upright posture","Improve shoulder blade control and upper back body awareness","Develop spinal extension strength for confident upright walking and standing"],
+  tactile: ["Forearms or hands pressing into mat — feel equal pressure through both sides", "Feel the work between your shoulder blades as you lift — not in your neck", "Pelvis stays heavy and pressed down — pubic bone does not lift"],
+  goals: ["Strengthen your upper back and open your chest", "Build the posture muscles for standing tall while walking", "Develop body awareness of your spine in a face-down position"],
   levels: [
     { lbl:"Basic", name:"Elbows on Mat", bg:"var(--basic)",
       steps: [
@@ -2666,7 +2611,8 @@ const M = {
       timing: "4 seconds to lift · 5 seconds hold · 4 seconds to lower",
       reps: "5 repetitions", breathing: "Inhale to prepare. Exhale to lift. Inhale to lower.",
       safety: "Hips press into the mat throughout. If lower back feels uncomfortable, reduce the lift.",
-      criteria: "Holds 5 seconds. Effort clearly in upper back. No lower back discomfort."
+      criteria: "Holds 5 seconds. Effort clearly in upper back. No lower back discomfort.",
+      muscle: "Upper back, shoulder support muscles",
     },
     { lbl:"Intermediate", name:"Hands Under Shoulders", bg:"var(--inter)",
       steps: [
@@ -2679,7 +2625,8 @@ const M = {
       timing: "4 seconds to lift · 5 seconds hold · 4 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "If lower back feels compressed, reduce the lift height. Keep neck long. Do not crunch it back.",
-      criteria: "Holds 5 seconds. Back muscles working more prominently than arms pushing."
+      criteria: "Holds 5 seconds. Back muscles working more prominently than arms pushing.",
+      muscle: "Upper back + bottom muscles",
     },
     { lbl:"Advanced", name:"Arms Lengthening", bg:"var(--adv)",
       steps: [
@@ -2692,7 +2639,8 @@ const M = {
       timing: "3 seconds to lift · 8 seconds hold · 3 seconds to lower",
       reps: "6 repetitions", breathing: "Exhale to rise. Natural during hold. Inhale to lower.",
       safety: "Sharp lower back pain is a stop signal, not a push-through-it signal.",
-      criteria: "Full position held 8 seconds. Back muscles primary. Chest and upper belly lifted. No lower back pain."
+      criteria: "Full position held 8 seconds. Back muscles primary. Chest and upper belly lifted. No lower back pain.",
+      muscle: "Upper back + bottom muscles + coordination",
     }
   ]
 },
@@ -2700,9 +2648,10 @@ const M = {
   name: "Arm–Leg Lift (Prone)",
   sec: "Posterior Chain & Whole-Body Coordination", sn: 4, clr: "#8C6E52",
   illus: "arm-leg-prone",
-  origin: "Swimming preparation / Prone Bird Dog",
+  origin: "Swimming",
   pos: "Lying face down, arms stretched overhead", support: "Torso and remaining limbs on mat",
-  goals: ["Strengthen glutes, hamstrings, and back extensors together in one movement","Build the cross-body coordination that underlies walking","Challenge the core to resist rotation as limbs extend","Improve proprioceptive awareness of arm and leg position in space","Develop posterior chain endurance for sustained walking and standing"],
+  tactile: ["Forehead rests on mat — feel it as a stable anchor throughout", "Feel the shoulder blade of the lifting arm staying down, not shrugging", "Feel the glute of the lifting leg engage — that is what lifts the leg, not the lower back"],
+  goals: ["Strengthen glutes, shoulder, and core in one movement", "Build the cross-body coordination your body uses in walking", "Improve awareness of arm and leg position in space"],
   levels: [
     { lbl:"Basic", name:"One Arm Lift", bg:"var(--basic)",
       steps: [
@@ -2715,7 +2664,8 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "5 each arm", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "Forehead stays on the mat. No neck strain. The arm lift is small. No body rolling.",
-      criteria: "Lifts without any body rotation or shoulder shrugging. Holds 5 seconds."
+      criteria: "Lifts without any body rotation or shoulder shrugging. Holds 5 seconds.",
+      muscle: "Bottom muscles, shoulder support muscles, core",
     },
     { lbl:"Intermediate", name:"One Leg Lift", bg:"var(--inter)",
       steps: [
@@ -2728,7 +2678,8 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "6 each leg", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "If the pelvis rotates when the leg lifts, reduce the height of the lift.",
-      criteria: "Leg lifts without pelvis rotating. Glute clearly engaged. Holds 5 seconds."
+      criteria: "Leg lifts without pelvis rotating. Glute clearly engaged. Holds 5 seconds.",
+      muscle: "Bottom muscles + core + shoulder (opposite sides)",
     },
     { lbl:"Advanced", name:"Opposite Arm and Leg", bg:"var(--adv)",
       steps: [
@@ -2741,7 +2692,8 @@ const M = {
       timing: "3 seconds to lift both · 8 seconds hold · 3 seconds to lower both",
       reps: "5 each diagonal (10 total)", breathing: "Exhale to lift both. Natural during hold. Inhale to lower.",
       safety: "If lower back arches excessively or you feel pain, lower and lift only one limb at a time.",
-      criteria: "8-second diagonal hold. Both limbs lifted. No torso twisting or lower back pain."
+      criteria: "8-second diagonal hold. Both limbs lifted. No torso twisting or lower back pain.",
+      muscle: "Bottom muscles + core + shoulder (no rest)",
     }
   ]
 },
@@ -2751,7 +2703,8 @@ const M = {
   illus: "swimming",
   origin: "Swimming",
   pos: "Lying face down", support: "Torso on mat",
-  goals: ["Build back and glute endurance through continuous alternating movement","Coordinate all four limbs in the cross-body pattern used in walking","Strengthen the entire posterior chain for better posture and gait","Develop sustained core engagement during dynamic movement","Improve rhythm and coordination in the body"],
+  tactile: ["Torso stays completely still — feel it as the anchor while limbs move", "Feel opposite arm and leg reaching away from each other in opposite directions", "Feel the small of your back: it must not arch or rock as limbs alternate"],
+  goals: ["Build back and glute endurance through continuous movement", "Coordinate all four limbs the way you do when you walk", "Strengthen the whole back of your body for better posture"],
   levels: [
     { lbl:"Basic", name:"Arms Only", bg:"var(--basic)",
       steps: [
@@ -2764,7 +2717,8 @@ const M = {
       timing: "2 seconds per arm lift, continuous",
       reps: "20 alternating (10 each arm)", breathing: "Natural rhythmic breathing throughout.",
       safety: "Chest must stay consistently lifted. If it drops, rest and try fewer reps.",
-      criteria: "20 continuous arm lifts with chest consistently elevated throughout."
+      criteria: "20 continuous arm lifts with chest consistently elevated throughout.",
+      muscle: "Core, shoulder support muscles, bottom muscles",
     },
     { lbl:"Intermediate", name:"Legs Only", bg:"var(--inter)",
       steps: [
@@ -2777,7 +2731,8 @@ const M = {
       timing: "2 seconds per leg lift, continuous",
       reps: "20 alternating (10 each leg)", breathing: "Natural throughout.",
       safety: "If pelvis rocks side to side, slow down and focus on keeping both hips equally pressed down.",
-      criteria: "20 continuous leg lifts with level pelvis throughout. Glutes working."
+      criteria: "20 continuous leg lifts with level pelvis throughout. Glutes working.",
+      muscle: "Core + bottom muscles + shoulders (alternating)",
     },
     { lbl:"Advanced", name:"Full Swimming", bg:"var(--adv)",
       steps: [
@@ -2790,7 +2745,8 @@ const M = {
       timing: "2–3 seconds per diagonal, continuous",
       reps: "20 total alternations", breathing: "Rhythmic breathing. Exhale for counts, inhale for counts.",
       safety: "Stop and rest if form breaks down. Build the duration gradually over time.",
-      criteria: "20 full alternations with consistent chest lift. Cross-body coordination clear. No rocking."
+      criteria: "20 full alternations with consistent chest lift. Cross-body coordination clear. No rocking.",
+      muscle: "Full core + coordination",
     }
   ]
 },
@@ -2800,7 +2756,8 @@ const M = {
   illus: "prone-arm",
   origin: "W-Y-T Exercises / Swimming variation",
   pos: "Lying face down", support: "Full torso on mat",
-  goals: ["Strengthen the muscles between the shoulder blades for better posture","Improve scapular control and shoulder blade body awareness","Counter the forward-rounded shoulder posture associated with cane use and low vision","Build upper back endurance for sustained upright positioning","Improve the shoulder strength needed for reaching, carrying, and guide dog handling"],
+  tactile: ["Arms along sides, palms facing up — feel shoulder blades drawing together and down", "Feel the work between your shoulder blades as both arms lift", "Neck stays long and relaxed — feel no tension or shrugging at the shoulders"],
+  goals: ["Strengthen the muscles between your shoulder blades", "Improve shoulder blade body awareness", "Counter the forward-rounded shoulders from cane use or guide dog handling"],
   levels: [
     { lbl:"Basic", name:"W Position", bg:"var(--basic)",
       steps: [
@@ -2813,7 +2770,8 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to lift and squeeze. Natural during hold. Inhale to lower.",
       safety: "Keep shoulders away from ears. Forehead stays on mat. Squeeze between blades, not neck.",
-      criteria: "Clear squeeze between shoulder blades. Holds 5 seconds. No neck strain."
+      criteria: "Clear squeeze between shoulder blades. Holds 5 seconds. No neck strain.",
+      muscle: "Upper back, back of your shoulder",
     },
     { lbl:"Intermediate", name:"T Position", bg:"var(--inter)",
       steps: [
@@ -2826,7 +2784,8 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "Return to W position if any shoulder joint discomfort (not muscle fatigue).",
-      criteria: "Arms lift from T with clear blade engagement. Holds 5 seconds. No neck strain."
+      criteria: "Arms lift from T with clear blade engagement. Holds 5 seconds. No neck strain.",
+      muscle: "Upper back + back of shoulder (fuller range)",
     },
     { lbl:"Advanced", name:"Y Position", bg:"var(--adv)",
       steps: [
@@ -2839,7 +2798,8 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "Return to T or W if needed. Any shoulder joint pain (not fatigue) means reduce the range.",
-      criteria: "Lifts in Y position with lower trap engaged. Holds 5 seconds. No neck strain."
+      criteria: "Lifts in Y position with lower trap engaged. Holds 5 seconds. No neck strain.",
+      muscle: "Upper back + back of shoulder (full range)",
     }
   ]
 },
@@ -2849,7 +2809,8 @@ const M = {
   illus: "prone-leg",
   origin: "Swimming variation / Leg Pull Front prep",
   pos: "Lying face down", support: "Full torso and arms on mat",
-  goals: ["Isolate and strengthen the gluteus maximus for walking and standing","Keep the pelvis completely still as the leg lifts behind","Build glute endurance for sustained walking and activity","Develop body awareness of hip position without visual feedback","Strengthen the entire hip extension chain needed for confident mobility"],
+  tactile: ["Pubic bone presses firmly into the mat — feel this as your anchor throughout", "Feel the glute of the lifting leg engage before the leg leaves the mat", "Feel both hip bones pressing equally into the mat — no rocking side to side"],
+  goals: ["Isolate and strengthen the glute on one side", "Keep the pelvis perfectly still as the leg lifts behind", "Build glute endurance for sustained walking and activity"],
   levels: [
     { lbl:"Basic", name:"Small Lift", bg:"var(--basic)",
       steps: [
@@ -2862,7 +2823,8 @@ const M = {
       timing: "3 seconds to lift · 5 seconds hold · 3 seconds to lower",
       reps: "5 each side", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "If pelvis rotates when leg lifts, lower the leg more (even 2 inches is fine).",
-      criteria: "Lifts without pelvis rotating. Glute working clearly. Holds 5 seconds."
+      criteria: "Lifts without pelvis rotating. Glute working clearly. Holds 5 seconds.",
+      muscle: "Bottom muscles, back of thigh (one leg)",
     },
     { lbl:"Intermediate", name:"Full Range", bg:"var(--inter)",
       steps: [
@@ -2875,7 +2837,8 @@ const M = {
       timing: "3 seconds to lift · 8 seconds hold · 3 seconds to lower",
       reps: "6 each side", breathing: "Exhale to lift. Natural during hold. Inhale to lower.",
       safety: "Lower back compression means reduce lift height. Glute work, not lower back work.",
-      criteria: "Holds 8 seconds at significant height with strong, consistent glute engagement."
+      criteria: "Holds 8 seconds at significant height with strong, consistent glute engagement.",
+      muscle: "Bottom muscles + back of thigh (alternating)",
     },
     { lbl:"Advanced", name:"Both Legs Together", bg:"var(--adv)",
       steps: [
@@ -2888,7 +2851,8 @@ const M = {
       timing: "3 seconds to lift both · 5 seconds hold · 3 seconds to lower both",
       reps: "6 repetitions", breathing: "Exhale to lift both. Natural during hold. Inhale to lower.",
       safety: "STOP immediately with any lower back pain. Press pubic bone down strongly as your protection.",
-      criteria: "Both legs lift with both glutes engaged. Holds 5 seconds. Zero lower back pain."
+      criteria: "Both legs lift with both glutes engaged. Holds 5 seconds. Zero lower back pain.",
+      muscle: "Bottom muscles + back of thigh (full effort)",
     }
   ]
 },
@@ -2898,7 +2862,8 @@ const M = {
   illus: "scapular",
   origin: "Shoulder stabilization fundamentals",
   pos: "Seated upright in a chair", support: "Sitting bones on chair, feet on floor",
-  goals: ["Develop conscious control of shoulder blade position without visual feedback","Draw shoulder blades down and back to reduce chronic neck and shoulder tension","Address the forward shoulder posture common from cane use and guide dog handling","Create a stable upper body foundation for all arm movements","Reduce the neck and upper back tension that builds from sustained forward posture"],
+  tactile: ["Feel your shoulder blades sliding down your back, away from your ears", "Feel the shoulder blades drawing toward your spine during retraction — like tucking wings", "Feel the deliberate circular path: up, back, down, forward — each direction distinct"],
+  goals: ["Draw your shoulder blades down and back to reduce neck tension", "Create a stable upper body base for all arm movements", "Develop conscious shoulder blade control without visual feedback"],
   levels: [
     { lbl:"Basic", name:"Depression and Hold", bg:"var(--basic)",
       steps: [
@@ -2911,7 +2876,8 @@ const M = {
       timing: "3 seconds to set · 5 seconds hold · 3 seconds release",
       reps: "8 repetitions", breathing: "Inhale: sit tall. Exhale: set blades down. Inhale: release.",
       safety: "The movement is subtle, not dramatic. This is not about forcing, just gentle and controlled.",
-      criteria: "Clear difference between 'set' and 'released' positions. Holds 5 seconds comfortably."
+      criteria: "Clear difference between 'set' and 'released' positions. Holds 5 seconds comfortably.",
+      muscle: "Shoulder blade muscles, upper back",
     },
     { lbl:"Intermediate", name:"Setting with Arm Reach", bg:"var(--inter)",
       steps: [
@@ -2924,7 +2890,8 @@ const M = {
       timing: "3 sec set · 3 sec arms rise · 5 sec hold · 3 sec arms lower · 3 sec release",
       reps: "6 repetitions", breathing: "Exhale to set. Natural with arms up. Inhale to release.",
       safety: "If shoulder blades drift up as arms rise, raise arms less, only to the range where blades can stay set.",
-      criteria: "Shoulder blades stay set as arms reach shoulder height. Holds 5 seconds with no shrugging."
+      criteria: "Shoulder blades stay set as arms reach shoulder height. Holds 5 seconds with no shrugging.",
+      muscle: "Shoulder blade muscles (full circle)",
     },
     { lbl:"Advanced", name:"Standing with Load", bg:"var(--adv)",
       steps: [
@@ -2937,7 +2904,8 @@ const M = {
       timing: "3 seconds per movement pattern",
       reps: "10 per movement pattern", breathing: "Natural throughout.",
       safety: "Very light load only. Any neck tension means reduce the load or movement size.",
-      criteria: "Scapular position maintained through all arm movements. No neck tension at any point."
+      criteria: "Scapular position maintained through all arm movements. No neck tension at any point.",
+      muscle: "Shoulder blade muscles + neck release",
     }
   ]
 },
@@ -2947,7 +2915,8 @@ const M = {
   illus: "wall-angel",
   origin: "Wall Angel: postural correction",
   pos: "Standing with back against wall", support: "Wall behind you",
-  goals: ["Experience what correct upright posture feels like using the wall as tactile feedback","Improve shoulder mobility and overhead reaching range","Strengthen the muscles that draw the shoulders back and open the chest","Correct the forward head and rounded shoulder posture common in low vision","Restore overhead mobility that is often limited by chronic forward-leaning posture"],
+  tactile: ["Back of head, shoulder blades, and lower back all touching the wall", "Feel the backs of your hands, wrists, and elbows maintain wall contact as arms slide up", "Feel where your back loses wall contact — that is your current range limit"],
+  goals: ["Experience correct upright posture using the wall as a tactile guide", "Improve shoulder and overhead mobility", "Open the chest and strengthen the muscles that draw shoulders back"],
   levels: [
     { lbl:"Basic", name:"W to Goalpost", bg:"var(--basic)",
       steps: [
@@ -2960,7 +2929,8 @@ const M = {
       timing: "5 seconds to slide up · 2 seconds hold · 5 seconds to slide down",
       reps: "5 repetitions", breathing: "Exhale: slide up. Inhale: slide down.",
       safety: "If your lower back arches off the wall as arms rise, bend knees more. Don't force arms higher.",
-      criteria: "Shoulders stay on wall throughout the slide. Arms reach goalpost position without back arching."
+      criteria: "Shoulders stay on wall throughout the slide. Arms reach goalpost position without back arching.",
+      muscle: "Shoulder blade muscles, chest",
     },
     { lbl:"Intermediate", name:"W to Overhead", bg:"var(--inter)",
       steps: [
@@ -2973,7 +2943,8 @@ const M = {
       timing: "6 seconds to slide overhead · brief hold · 6 seconds to lower",
       reps: "8 repetitions", breathing: "Exhale: slide up. Inhale: slide down.",
       safety: "Never force arms higher than comfortable. The goal is gradual range improvement over weeks.",
-      criteria: "Smooth full-range movement. Shoulders maintain wall contact through most of the range."
+      criteria: "Smooth full-range movement. Shoulders maintain wall contact through most of the range.",
+      muscle: "Shoulder blade muscles + chest (arms sliding)",
     },
     { lbl:"Advanced", name:"Single Arm Overhead", bg:"var(--adv)",
       steps: [
@@ -2986,7 +2957,8 @@ const M = {
       timing: "5 seconds to reach up · 5 seconds hold · 5 seconds to return",
       reps: "6 each arm", breathing: "Exhale to reach. Natural during hold. Inhale to return.",
       safety: "The opposite shoulder must stay firmly on the wall. If it lifts, reduce the reach.",
-      criteria: "Single arm reaches overhead while opposite shoulder stays in W on wall. Holds 5 seconds."
+      criteria: "Single arm reaches overhead while opposite shoulder stays in W on wall. Holds 5 seconds.",
+      muscle: "Shoulder blade muscles + chest (full range)",
     }
   ]
 },
@@ -2996,7 +2968,8 @@ const M = {
   illus: "shoulder-rolls",
   origin: "Relaxation and shoulder mobility",
   pos: "Seated or standing, arms relaxed", support: "Seated or standing",
-  goals: ["Release chronic neck and upper shoulder tension from cane use and sustained forward posture","Develop awareness of where the shoulders naturally rest without effort","Connect breath to movement for a calming, parasympathetic effect","Gently mobilise the upper back and neck","Use as a warm-up before exercise or a calming close to a session"],
+  tactile: ["Arms hang completely relaxed by your sides — feel the weight of them dropping", "Feel the shoulder blade moving in a full circle: up toward ear, back, down, forward", "Feel the release on the downward sweep — like setting the shoulder into its socket"],
+  goals: ["Release neck and shoulder tension from cane use or sustained forward posture", "Connect breath to movement for a calming effect", "Gently warm up or wind down the upper back and neck"],
   levels: [
     { lbl:"Basic", name:"Slow Shrugs", bg:"var(--basic)",
       steps: [
@@ -3009,7 +2982,8 @@ const M = {
       timing: "4 seconds to rise · 2 seconds hold · 4 seconds to melt down",
       reps: "8 repetitions", breathing: "Inhale: shoulders float up. Exhale: shoulders melt down and back.",
       safety: "Movement should feel releasing, not effortful. Never force or squeeze.",
-      criteria: "Shoulders noticeably lower after the set. Clear sense of release with each exhale."
+      criteria: "Shoulders noticeably lower after the set. Clear sense of release with each exhale.",
+      muscle: "Shoulder blade muscles, neck",
     },
     { lbl:"Intermediate", name:"Full Circles", bg:"var(--inter)",
       steps: [
@@ -3022,7 +2996,8 @@ const M = {
       timing: "4–5 seconds per full circle",
       reps: "5 backward circles · 5 forward circles", breathing: "Inhale: up and back. Exhale: down and forward.",
       safety: "If you hear or feel grinding, make smaller circles or simply slow down.",
-      criteria: "Smooth circles in both directions. Genuine sense of release. No tension increasing."
+      criteria: "Smooth circles in both directions. Genuine sense of release. No tension increasing.",
+      muscle: "Shoulder blade muscles + upper neck muscles",
     },
     { lbl:"Advanced", name:"Rolls with Deep Breath", bg:"var(--adv)",
       steps: [
@@ -3035,13 +3010,148 @@ const M = {
       timing: "5–6 seconds per full cycle with breath",
       reps: "10 full cycles", breathing: "Full inhale with shoulder rise. Complete exhale with shoulder drop.",
       safety: "Deep breathing can cause lightheadedness. Return to normal breathing if this happens.",
-      criteria: "Rib expansion felt clearly under hands. Breath and movement fully synchronized. Clearly calming."
+      criteria: "Rib expansion felt clearly under hands. Breath and movement fully synchronized. Clearly calming.",
+      muscle: "Full shoulder release",
     }
   ]
 }
 };
 
 // ─── SECTION FIRST IDS ─────────────────────────────────────────────────────
+const SECTION_META = [
+  { key: 1, label: "Core Stability", short: "Foundational Core", desc: "Develop core strength and body awareness from the safest supported position: lying on your back.", navLabel: "Core Stability", color: "#C47B52", homeCount: 9 },
+  { key: 2, label: "Spinal Mobility & Posture Control", short: "Spinal Mobility & Posture Control", desc: "Gently move the spine in all directions to improve posture, reduce stiffness, and feel taller.", navLabel: "Spinal Mobility & Posture Control", color: "#5C8C6E", homeCount: 6 },
+  { key: 3, label: "Balance & Lower Limb Control", short: "Balance & Lower Limb Control", desc: "Build standing confidence and leg strength with full chair and wall support throughout.", navLabel: "Balance & Lower Limb Control", color: "#4A6FA0", homeCount: 7 },
+  { key: 4, label: "Posterior Chain & Whole-Body Coordination", short: "Posterior Chain & Whole-Body Coordination", desc: "Strengthen the back of your body: glutes, hamstrings, and spine, from the ground up.", navLabel: "Posterior Chain & Whole-Body Coordination", color: "#8C6E52", homeCount: 5 },
+  { key: 5, label: "Shoulder & Neck Relief", short: "Shoulder & Neck Relief", desc: "Release chronic tension, correct forward shoulder posture, and restore upper body ease.", navLabel: "Shoulder & Neck Relief", color: "#6E6840", homeCount: 3 }
+];
+
+const FOUNDATION_META = [
+  ["neutral-spine", "Neutral Spine", "The foundation of safe movement"],
+  ["neutral-pelvis", "Neutral Pelvis", "Anchor for core control"],
+  ["pilates-breath", "Pilates Breathing", "Breath that powers movement"],
+  ["powerhouse", "Powerhouse & Core", "Your body's centre of strength"],
+  ["imprinting", "Imprinting", "Connecting spine to the mat"],
+  ["spine-articulation", "Spine Articulation", "Moving one vertebra at a time"],
+  ["scapular-stability", "Scapular Stability", "Grounding the shoulder blades"],
+  ["body-know-how", "Your Body Map", "Building internal body awareness"]
+];
+
+function countMovesBySection(sectionNumber) {
+  return Object.values(M).filter(m => m.sn === sectionNumber).length;
+}
+
+function renderSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  if (!nav) return;
+
+  const foundationsHtml = FOUNDATION_META.map(([key, name]) =>
+    `<button class="found-item-btn" data-concept-key="${key}" aria-label="${name} concept" role="listitem">${name}</button>`
+  ).join('');
+
+  const sectionsHtml = SECTION_META.map((section, idx) => {
+    const ids = Object.entries(M).filter(([, move]) => move.sn === section.key).map(([id, move]) => ({ id, name: move.name }));
+    const moveButtons = ids.map(({ id, name }) =>
+      `<button class="move-btn" data-move-id="${id}" aria-label="${id} ${name}"><span class="move-num">${id}</span>${name}</button>`
+    ).join('');
+    return `
+      <div class="sec-group">
+        <button class="sec-btn ${idx === 0 ? 'open' : ''}" data-sec-index="${idx}" aria-expanded="${idx === 0 ? 'true' : 'false'}" aria-controls="nav-sec${section.key}" aria-label="Section ${section.key}: ${section.label}. ${ids.length} movements. Collapse or expand.">
+          <span class="sec-dot" style="background:${section.color}" aria-hidden="true"></span>
+          <span class="sec-label">${section.label}</span>
+          <span class="sec-arrow" aria-hidden="true">▶</span>
+        </button>
+        <div class="moves-list ${idx === 0 ? 'open' : ''}" id="nav-sec${section.key}">${moveButtons}</div>
+      </div>`;
+  }).join('');
+
+  nav.innerHTML = `
+    <div class="found-group">
+      <button class="found-btn" id="found-btn" aria-expanded="false" aria-controls="nav-found" aria-label="Pilates Foundations: core concepts">
+        <span class="found-dot" aria-hidden="true"></span>
+        <span class="found-label">Foundations</span>
+        <span class="found-arrow" aria-hidden="true">▶</span>
+      </button>
+      <div class="found-list" id="nav-found" role="list">${foundationsHtml}</div>
+    </div>${sectionsHtml}`;
+}
+
+function renderHome() {
+  const quick = document.getElementById('quick-nav-links');
+  const stats = document.getElementById('stats-row');
+  const grid = document.getElementById('section-grid');
+  const found = document.getElementById('home-found-grid');
+  if (!quick || !stats || !grid || !found) return;
+
+  quick.innerHTML = SECTION_META.map((section, idx) => `
+    <button class="quick-nav-btn" data-open-sec="${idx}" role="listitem" aria-label="Jump to Section ${section.key}: ${section.label}, ${countMovesBySection(section.key)} movements">
+      <span class="qn-num" aria-hidden="true">${String(section.key).padStart(2, '0')}</span>
+      <span class="qn-name">${section.navLabel}</span>
+    </button>`).join('') + `
+    <button class="quick-nav-btn qn-found" data-open-foundations="true" role="listitem" aria-label="Jump to Pilates Foundations: core concepts and principles">
+      <span class="qn-num" aria-hidden="true">✦</span>
+      <span class="qn-name">Foundations</span>
+    </button>`;
+
+  const totalMoves = Object.keys(M).length;
+  const totalProgressions = Object.values(M).reduce((sum, move) => sum + move.levels.length, 0);
+  const statItems = [
+    [SECTION_META.length, 'Focus Areas', '#C47B52'],
+    [totalMoves, 'Guided Movements', '#5C8C6E'],
+    [3, 'Levels for Every Exercise', '#4A6FA0'],
+    [totalProgressions, 'Ways to Progress', '#8C6E52']
+  ];
+  stats.innerHTML = statItems.map(([num, label, color]) => `
+    <div class="stat-card" role="listitem" aria-label="${num} ${label}">
+      <div class="stat-num" style="color:${color}" aria-hidden="true">${num}</div>
+      <div class="stat-lbl">${label}</div>
+    </div>`).join('');
+
+  grid.innerHTML = SECTION_META.map((section, idx) => `
+    <button class="sec-card" style="--clr:${section.color}${idx === 4 ? '; grid-column: 1 / -1' : ''}" data-open-sec="${idx}" role="listitem" aria-label="Section ${section.key}: ${section.label}. ${countMovesBySection(section.key)} movements. ${section.desc} Press to open.">
+      <div class="sec-card-num" aria-hidden="true">Section ${String(section.key).padStart(2, '0')}</div>
+      <div class="sec-card-heading" aria-hidden="true">${section.short}</div>
+      <p aria-hidden="true">${section.desc}</p>
+      <span class="sec-count" style="color:${section.color}" aria-hidden="true">${countMovesBySection(section.key)} movements</span>
+    </button>`).join('');
+
+  found.innerHTML = FOUNDATION_META.map(([key, name, hint]) => `
+    <button class="found-home-card" data-concept-key="${key}" role="listitem" aria-label="${name}: ${hint}. Press to explore.">
+      <span class="fhc-icon" aria-hidden="true">⊕</span>
+      <span class="fhc-name">${name}</span>
+      <span class="fhc-hint">${hint}</span>
+    </button>`).join('');
+}
+
+function openFoundations() {
+  const btn = document.getElementById('found-btn') || document.querySelector('.found-btn');
+  if (!btn) return;
+  const list = btn.nextElementSibling;
+  if (list && !list.classList.contains('open')) toggleFound(btn);
+  btn.scrollIntoView({ block: 'nearest' });
+}
+
+function bindUiEvents() {
+  document.addEventListener('click', (e) => {
+    const secToggle = e.target.closest('.sec-btn');
+    if (secToggle) { toggleSec(secToggle); return; }
+
+    const foundToggle = e.target.closest('.found-btn');
+    if (foundToggle) { toggleFound(foundToggle); return; }
+
+    const moveBtn = e.target.closest('[data-move-id]');
+    if (moveBtn) { show(moveBtn.dataset.moveId); return; }
+
+    const conceptBtn = e.target.closest('[data-concept-key]');
+    if (conceptBtn) { showConcept(conceptBtn.dataset.conceptKey); return; }
+
+    const openSecBtn = e.target.closest('[data-open-sec]');
+    if (openSecBtn) { openSec(Number(openSecBtn.dataset.openSec)); return; }
+
+    if (e.target.closest('[data-open-foundations]')) { openFoundations(); }
+  });
+}
+
 const secFirst = ["1.1","2.1","3.1","4.1","5.1"];
 const allIds = Object.keys(M);
 
@@ -3067,10 +3177,7 @@ function show(id) {
   if (!m) return;
 
   document.querySelectorAll('.move-btn').forEach(b => {
-    b.classList.remove('active');
-    if (b.getAttribute('aria-label') === `${id} ${m.name}` || b.textContent.trim().includes(m.name)) {
-      b.classList.add('active');
-    }
+    b.classList.toggle('active', b.dataset.moveId === id);
   });
 
   const homeEl = document.getElementById('home');
@@ -3120,9 +3227,17 @@ function show(id) {
         <dt class="info-key">Support Needed</dt>
         <dd class="info-val">${m.support}</dd>
       </div>
-      <div class="info-chip">
-        <dt class="info-key">Levels Available</dt>
-        <dd class="info-val">Basic, Intermediate, Advanced</dd>
+      <div class="info-chip" id="muscle-chip-${id}">
+        <dt class="info-key">Muscle Focus</dt>
+        <dd class="info-val" id="muscle-chip-val-${id}">${m.levels[0].muscle||""}</dd>
+      </div>
+      <div class="info-chip info-chip--full">
+        <dt class="info-key">Tactile landmarks — use your hands as guides</dt>
+        <dd class="info-val">
+          <ul class="tactile-list">
+            ${(m.tactile||[]).map(t => `<li class="tactile-item">${t}</li>`).join("")}
+          </ul>
+        </dd>
       </div>
     </dl>
 
@@ -3135,7 +3250,7 @@ function show(id) {
 
     ${(MOVE_CONCEPTS[id]||[]).length > 0 ? `
     <div class="concept-badges" role="list" aria-label="Related Pilates foundations">
-      <span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-faint);align-self:center;margin-right:4px;">Foundation concepts</span>
+      <span class="found-concepts-label">Foundation concepts</span>
       ${(MOVE_CONCEPTS[id]||[]).map(k => `<button class="concept-badge" onclick="showConcept('${k}')" role="listitem" aria-label="Learn about ${CONCEPT_NAMES[k]}">${CONCEPT_NAMES[k]}</button>`).join('')}
     </div>` : ''}
 
@@ -3178,7 +3293,7 @@ function show(id) {
           </div>
           <div class="metric">
             <dt class="metric-key">Timing</dt>
-            <dd class="metric-val">${lv.timing}</dd>
+            <dd class="metric-val" style="color:${lv.bg}">${lv.timing}</dd>
           </div>
           <div class="metric">
             <dt class="metric-key">Level</dt>
@@ -3246,7 +3361,28 @@ function swLv(i, id) {
   const a = document.getElementById('sr-announce');
   const moveName = id ? (window.M && window.M[id] ? window.M[id].name : '') : '';
   if (a) { a.textContent=''; setTimeout(()=>{ a.textContent = labels[i] + ' level' + (moveName ? ' for ' + moveName : '') + '. Use Tab to read the instructions.'; }, 60); }
+  // Update muscle chip to reflect active level
+  if (id && window.M && window.M[id] && window.M[id].levels[i]) {
+    const muscleVal = document.getElementById('muscle-chip-val-' + id);
+    if (muscleVal) muscleVal.textContent = window.M[id].levels[i].muscle || '';
+  }
 }
+
+// ── WCAG tablist arrow-key navigation ─────────────────────────────
+document.addEventListener('keydown', function(e) {
+  const tab = e.target.closest('[role="tab"]');
+  if (!tab) return;
+  const tablist = tab.closest('[role="tablist"]');
+  if (!tablist) return;
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  const idx = tabs.indexOf(tab);
+  let next = -1;
+  if (e.key === 'ArrowRight') { e.preventDefault(); next = (idx + 1) % tabs.length; }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); next = (idx - 1 + tabs.length) % tabs.length; }
+  if (e.key === 'Home')       { e.preventDefault(); next = 0; }
+  if (e.key === 'End')        { e.preventDefault(); next = tabs.length - 1; }
+  if (next >= 0) { tabs[next].click(); tabs[next].focus(); }
+});
 
 function goHome() {
   const homeEl = document.getElementById('home');
@@ -3471,7 +3607,7 @@ function showConcept(key) {
 
   // mark active
   document.querySelectorAll('.found-item-btn').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('onclick') === "showConcept('" + key + "')");
+    b.classList.toggle('active', b.dataset.conceptKey === key);
   });
   document.querySelectorAll('.move-btn').forEach(b => b.classList.remove('active'));
 
@@ -3619,6 +3755,12 @@ document.addEventListener('keydown', function _trapShortcutFocus(e) {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  renderSidebar();
+  renderHome();
+  bindUiEvents();
+});
+
 // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────────────
 document.addEventListener('keydown', function(e) {
   const tag = e.target.tagName.toLowerCase();
@@ -3639,6 +3781,32 @@ document.addEventListener('keydown', function(e) {
     if (e.key === '3') { const t=document.querySelectorAll('.lvl-tab'); if(t[2])t[2].click(); return; }
     if (e.key.toLowerCase() === 'f') { const b=document.querySelector('.found-btn'); if(b)b.click(); return; }
     if (e.key.toLowerCase() === 'c') { toggleHighContrast(); return; }
+  }
+});
+
+
+// ── Mobile sidebar ─────────────────────────────────────────────
+function openSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebar-overlay');
+  sb.classList.add('open');
+  ov.classList.add('open');
+  ov.setAttribute('aria-hidden', 'false');
+  document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'true');
+  // Move focus into sidebar for screen reader users
+  const firstFocusable = sb.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
+  if (firstFocusable) setTimeout(() => firstFocusable.focus(), 80);
+}
+function closeSidebar() {
+  const ov = document.getElementById('sidebar-overlay');
+  document.getElementById('sidebar').classList.remove('open');
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden', 'true');
+  document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'false');
+}
+document.addEventListener('click', function(e) {
+  if ((e.target.closest('.move-btn') || e.target.closest('.found-item-btn')) && window.innerWidth <= 700) {
+    setTimeout(closeSidebar, 80);
   }
 });
 
