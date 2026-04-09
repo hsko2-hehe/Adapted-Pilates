@@ -17,6 +17,10 @@ button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
+/* Visible only on mobile for screen reader sidebar close affordance */
+.sr-mobile-only {
+  display: none;
+}
 .skip-link {
   position: absolute; top: -100%; left: 12px;
   background: #1A1510; color: #F8F3EC;
@@ -71,6 +75,7 @@ button:focus-visible { outline: 2.5px solid #B5622A; outline-offset: 3px; }
 html { font-size: 16px; }
 body {
   font-family: 'DM Sans', sans-serif;
+  padding-bottom: env(safe-area-inset-bottom, 0);
   font-size: var(--text-base);
   background: var(--ivory);
   color: var(--text);
@@ -570,7 +575,8 @@ body.mode-high-contrast .home-headline em {
   text-align: left; position: relative; overflow: hidden;
   transition: transform 0.22s var(--ease-snap),
               box-shadow 0.22s ease, border-color 0.18s;
-}
+
+  min-height: 44px;}
 .found-home-card::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0;
   height: 2px; background: var(--c1);
@@ -1199,6 +1205,15 @@ body.mode-text-only .concept-hero::after { display: none; }
 /* ── MOBILE RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 700px) {
   /* ── Shell & sidebar drawer ── */
+  /* ── Sidebar close button (mobile only) ── */
+  .sr-mobile-only {
+    display: block;
+    position: absolute; top: 12px; right: 12px;
+    background: var(--ivory-deep); border: 1px solid var(--border);
+    border-radius: var(--radius-xs); padding: 6px 12px;
+    font-size: var(--text-sm); color: var(--text); cursor: pointer;
+    z-index: 10;
+  }
   .shell { display: block; height: auto; overflow: visible; }
   .sidebar {
     position: fixed; top: 0; left: 0; bottom: 0;
@@ -1238,7 +1253,7 @@ body.mode-text-only .concept-hero::after { display: none; }
 
   /* ── Accessibility toolbar: move below topbar on mobile ── */
   .font-toolbar {
-    top: auto; bottom: 16px; right: 16px;
+    bottom: 16px; right: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   }
 
@@ -1266,17 +1281,25 @@ body.mode-text-only .concept-hero::after { display: none; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-illustration {
     display: flex;
+    align-items: center;
+    justify-content: center;
     border-left: none;
     border-top: 1px solid var(--border);
-    min-height: 160px;
-    padding: 16px;
+    min-height: 180px;
+    padding: 20px 16px;
   }
-  .hero-illustration svg { max-height: 140px; }
+  .hero-illustration svg,
+  .hero-illustration .illus-img {
+    max-height: 150px;
+    width: auto;
+    max-width: 100%;
+  }
   .hero-content { padding: 20px 20px 18px; }
   .hero-title { font-size: 2rem; }
 
   /* Info strip: single column */
-  dl.info-strip { grid-template-columns: 1fr; gap: 8px; margin-bottom: 16px; }
+  dl.info-strip { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .info-chip.info-chip--full { grid-column: 1 / -1; }
 
   /* Purpose block */
   .purpose-block { padding: 15px 16px; }
@@ -1373,6 +1396,7 @@ body.mode-text-only .concept-hero::after { display: none; }
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar" aria-label="Movement navigation. 31 exercises across 5 sections">
     <div class="sidebar-top">
+      <button class="sidebar-close-btn sr-mobile-only" onclick="closeSidebar()" aria-label="Close navigation menu">Close menu</button>
       <div class="brand-lockup">
         <!-- Logo image panel — seamlessly integrated, no border -->
         <div class="brand-logo-panel" aria-hidden="true">
@@ -1407,7 +1431,7 @@ body.mode-text-only .concept-hero::after { display: none; }
           </svg>
         </div>
         <div class="brand-wordmark">
-          <div class="brand-name" role="heading" aria-level="1">Adapted Pilates</div>
+          <div class="brand-name" aria-label="Adapted Pilates Movement Library">Adapted Pilates</div>
           <div class="brand-wordmark-divider" aria-hidden="true"></div>
           <div class="brand-sub">Movement Library</div>
         </div>
@@ -1427,7 +1451,7 @@ body.mode-text-only .concept-hero::after { display: none; }
       <div class="home-hero-wrap">
         <div class="home-hero-text">
           <div class="home-eyebrow" aria-hidden="true">Adapted for Every Body</div>
-          <h1 class="home-headline">Move in a way that<br><em>feels right for you.</em></h1>
+          <h1 class="home-headline">Move in a way that <em>feels right for you.</em></h1>
           <p class="home-desc">This adaptive Pilates library lets you explore movement safely, build strength, and progress at your own pace. No prior experience needed.</p>
         </div>
         <div class="home-hero-deco" aria-hidden="true">
@@ -1452,7 +1476,7 @@ body.mode-text-only .concept-hero::after { display: none; }
         <div class="home-found-section" role="region" aria-labelledby="found-home-heading">
           <div class="home-found-header">
             <h2 class="home-found-title" id="found-home-heading">Pilates Foundations</h2>
-            <p class="home-found-desc">New to Pilates? Start here. These core concepts underpin every movement in this library. Understanding them will help every exercise feel clearer and safer.</p>
+            <p class="home-found-desc"><span class="sr-only">10 foundation concepts. </span>New to Pilates? Start here. These core concepts underpin every movement in this library. Understanding them will help every exercise feel clearer and safer.</p>
           </div>
           <div class="home-found-grid" id="home-found-grid" role="list" aria-label="8 Pilates foundation concepts"></div>
         </div>
@@ -3181,7 +3205,7 @@ function renderSidebar() {
   if (!nav) return;
 
   const foundationsHtml = FOUNDATION_META.map(([key, name]) =>
-    `<button class="found-item-btn" data-concept-key="${key}" aria-label="${name} concept">${name}</button>`
+    `<button class="found-item-btn" data-concept-key="${key}" role="listitem" aria-label="${name} concept">${name}</button>`
   ).join('');
 
   const sectionsHtml = SECTION_META.map((section, idx) => {
@@ -3372,6 +3396,7 @@ function show(id) {
       </div>
     </div>
 
+    <h2 class="sr-only">Exercise overview</h2>
     <dl class="info-strip" aria-label="Exercise at a glance">
       <div class="info-chip">
         <dt class="info-key">Starting Position</dt>
@@ -3396,7 +3421,7 @@ function show(id) {
     </dl>
 
     <div class="purpose-block" role="region" aria-label="Movement goals">
-      <div class="purpose-label">What this movement does for you</div>
+      <h2 class="purpose-label">What this movement does for you</h2>
       <div class="purpose-tags" role="list">
         ${m.goals.map(g => `<span class="purpose-tag" role="listitem">${g}</span>`).join('')}
       </div>
@@ -3409,7 +3434,7 @@ function show(id) {
     </div>` : ''}
 
     <div class="level-header">
-      <div class="level-label">Choose your level</div>
+      <h2 class="level-label">Choose your level</h2>
       <div class="level-tabs" role="tablist" aria-label="Exercise levels">
         <button class="lvl-tab b active" onclick="swLv(0,'${id}')" role="tab" aria-selected="true" id="tab-0-${id}" aria-controls="panel-0-${id}" aria-label="Basic level for ${m.name}">Basic</button>
         <button class="lvl-tab i" onclick="swLv(1,'${id}')" role="tab" aria-selected="false" id="tab-1-${id}" aria-controls="panel-1-${id}" aria-label="Intermediate level for ${m.name}">Intermediate</button>
@@ -3425,7 +3450,7 @@ function show(id) {
         </div>
 
         <div class="how-section" role="region" aria-labelledby="how-heading-${i}-${id}">
-          <h2 class="how-header" id="how-heading-${i}-${id}">Step-by-step instructions</h2>
+          <h2 class="how-header" id="how-heading-${i}-${id}">Step-by-step instructions (${lv.steps.length} steps)</h2>
           <ol class="how-steps" aria-label="Steps for ${lv.name}">
             ${lv.steps.map((s, j) => `
             <li class="how-step">
@@ -3474,6 +3499,10 @@ function show(id) {
     </div>
   `;
 
+  // Update mobile topbar title to show current exercise name
+  const mobileTitle = document.querySelector('.mobile-topbar-title');
+  if (mobileTitle) mobileTitle.textContent = m.name;
+
   // On mobile, scroll main container to top; on desktop scroll detail into view
   const mainScrollEl = document.getElementById('main');
   if (window.innerWidth <= 700 && mainScrollEl) {
@@ -3486,7 +3515,7 @@ function show(id) {
   if (announcer) {
     announcer.textContent = '';
     setTimeout(() => {
-      announcer.textContent = 'Now showing: ' + m.name + '. ' + m.sec + ' section. Use Tab to navigate the exercise details.';
+      announcer.textContent = 'Now showing: ' + m.name + '. ' + m.sec + '. 3 levels available: Basic, Intermediate, and Advanced. Use Tab to navigate.';
     }, 100);
   }
   // Move focus to the main heading for screen readers
@@ -3559,6 +3588,10 @@ function goHome() {
 
   document.querySelectorAll('.move-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.found-item-btn').forEach(b => b.classList.remove('active'));
+
+  // Reset mobile topbar title
+  const mobileTitleHome = document.querySelector('.mobile-topbar-title');
+  if (mobileTitleHome) mobileTitleHome.textContent = 'Adapted Pilates';
 
   if (window.innerWidth <= 700) {
     const mainEl = document.getElementById('main');
@@ -3774,7 +3807,9 @@ const CONCEPT_NAMES = {
   "imprinting": "Imprinting",
   "spine-articulation": "Spine Articulation",
   "scapular-stability": "Scapular Stability",
-  "body-know-how": "Your Body Map"
+  "body-know-how": "Your Body Map",
+  "movement-order": "How We Describe Movement",
+  "body-angles": "Body Angles, Simply Put"
 };
 
 function toggleFound(btn) {
@@ -3808,7 +3843,7 @@ function showConcept(key) {
   document.querySelectorAll('.move-btn').forEach(b => b.classList.remove('active'));
 
   const relHtml = c.relatedMoves.map(([id, name]) =>
-    `<button class="concept-rel-btn" onclick="show('${id}')" aria-label="Go to exercise ${name}">${name}</button>`
+    `<button class="concept-rel-btn" onclick="show('${id}')" role="listitem" aria-label="Go to ${name} exercise">${name}</button>`
   ).join('');
 
   // other concepts to browse
@@ -4049,17 +4084,17 @@ document.addEventListener('click', function(e) {
 <div class="shortcut-overlay" id="shortcut-overlay" onclick="closeShortcuts()" aria-hidden="true"></div>
 <div class="shortcut-panel" id="shortcut-panel" role="dialog" aria-modal="true" aria-labelledby="shortcuts-heading" aria-hidden="true">
   <h2 id="shortcuts-heading">Keyboard Shortcuts</h2>
-  <div class="shortcut-row"><span class="shortcut-key">→</span><span class="shortcut-desc">Next movement</span></div>
-  <div class="shortcut-row"><span class="shortcut-key">←</span><span class="shortcut-desc">Previous movement</span></div>
+  <div class="shortcut-row"><span class="shortcut-key" aria-label="Right arrow">→</span><span class="shortcut-desc">Next movement</span></div>
+  <div class="shortcut-row"><span class="shortcut-key" aria-label="Left arrow">←</span><span class="shortcut-desc">Previous movement</span></div>
   <div class="shortcut-row"><span class="shortcut-key">H</span><span class="shortcut-desc">Go to Home</span></div>
   <div class="shortcut-row"><span class="shortcut-key">1</span><span class="shortcut-desc">Switch to Basic level</span></div>
   <div class="shortcut-row"><span class="shortcut-key">2</span><span class="shortcut-desc">Switch to Intermediate level</span></div>
   <div class="shortcut-row"><span class="shortcut-key">3</span><span class="shortcut-desc">Switch to Advanced level</span></div>
   <div class="shortcut-row"><span class="shortcut-key">F</span><span class="shortcut-desc">Open / close Foundations menu</span></div>
   <div class="shortcut-row"><span class="shortcut-key">C</span><span class="shortcut-desc">Toggle high contrast mode</span></div>
-  <div class="shortcut-row"><span class="shortcut-key">?</span><span class="shortcut-desc">Show / hide shortcuts</span></div>
+  <div class="shortcut-row"><span class="shortcut-key" aria-label="Question mark">?</span><span class="shortcut-desc">Show / hide shortcuts</span></div>
   <div class="shortcut-row"><span class="shortcut-key">Esc</span><span class="shortcut-desc">Close this panel</span></div>
-  <button class="shortcut-close" onclick="closeShortcuts()">Close shortcuts</button>
+  <button class="shortcut-close" onclick="closeShortcuts()" aria-label="Close keyboard shortcuts panel">Close shortcuts</button>
 </div>
 
 </div>
